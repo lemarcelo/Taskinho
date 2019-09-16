@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="Taskinho.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Taskinho.UWP"
+    RequestedTheme="Light">
+
+</Application>

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:Util="clr-namespace:Taskinho.Util"
+             x:Name="DetailPage"
+             x:Class="Taskinho.Views.DetailView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="TarefaPendente">
+                <ViewCell>
+
+                    <Grid BackgroundColor="#2196F3" >
+                        <!--<Grid.GestureRecognizers>
+                            
+                        </Grid.GestureRecognizers>-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="28"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Label Grid.Column="0" Text="R" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                        <StackLayout Grid.Column="1" Padding="10" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding TarefaTitulo}" TextColor="White" />
+                            <Label Text="{Binding TarefaPrazo}" TextColor="White" />
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Orientation="Horizontal" VerticalOptions="Center">
+                            <Label Text="Editar">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="|" />
+                            <Label Text="Excluir">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.ExcluirCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="TarefaRealizada">
+                <ViewCell>
+                    <StackLayout Padding="10" BackgroundColor="Gray" HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding TarefaTitulo}" TextColor="White" />
+                        <Label Text="{Binding TarefaPrazo}" TextColor="White" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <Util:TarefaDataTemplateSelector x:Key="TarefaDataTemplateSelector"
+                TarefaPendenteTemplate="{StaticResource TarefaPendente}"
+                TarefaRealizadaTemplate="{StaticResource TarefaRealizada}"
+                />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+
+        <StackLayout>
+            <Frame CornerRadius="10" BackgroundColor="#2196F3" Margin="10">
+                <StackLayout BackgroundColor="#2196F3" HeightRequest="150">
+
+                    <Label x:Name="Teste" Text="TESTE">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ExcluirCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    
+                    
+                    <Label Text="{Binding TarefaTitulo}" FontAttributes="Bold" FontFamily="Times" FontSize="24" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="#87CEEB" />
+                    <Label x:Name="DataHoje" FontSize="16" HorizontalOptions="Center" TextColor="#E0FFFF"/>
+                                        
+                    <ImageButton Source="plus.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Command="{Binding AdicionarCommand}">
+                        <ImageButton.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="Android, iOS" Value="0,0,-10,-10" />
+                                <!--<On Platform="UWP" Value="" />-->
+                            </OnPlatform>
+                        </ImageButton.Margin>
+                    </ImageButton>
+                </StackLayout>
+            </Frame>
+
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                    <ListView ItemsSource="{Binding Tarefas}" HasUnevenRows="True" VerticalOptions="FillAndExpand" ItemTemplate="{StaticResource TarefaDataTemplateSelector}">
+                    </ListView>
+                </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
