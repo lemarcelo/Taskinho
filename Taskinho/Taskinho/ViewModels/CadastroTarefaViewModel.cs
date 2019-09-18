@@ -81,7 +81,6 @@ namespace Taskinho.ViewModels
             set;
         }
 
-        
         private void Adicionar(object obj)
         {
             tarefa.IdGrupo = 0;
@@ -93,6 +92,7 @@ namespace Taskinho.ViewModels
             tarefa.TarefaStatus = "p";
             LocalDB _connection = new LocalDB();
             _connection.InsertT(tarefa);
+            EnviarAddMsg();
             messageService.ShowAsync("Tarefa Salva");
             navigationService.BackToPrincipal();
         }
@@ -105,6 +105,13 @@ namespace Taskinho.ViewModels
             }
         }
         
+        void EnviarAddMsg()
+        {
+            var detailViewModel = new DetailViewModel();
+            MessagingCenter.Send<DetailViewModel>(detailViewModel, "AdicionarTarefaMsg");
+        }
+
+
         private readonly Services.IMessageService messageService;
         private readonly Services.INavigationService navigationService;
 
@@ -113,8 +120,10 @@ namespace Taskinho.ViewModels
             
             CancelarCommand = new Command(Cancelar);
             SalvarCommand = new Command(Adicionar);
+
             this.messageService = DependencyService.Get<Services.IMessageService>();
             this.navigationService = DependencyService.Get<Services.INavigationService>();
+
         }
 
         //TODO - OCULTAR DATA QUANDO NÃO INFORMADA

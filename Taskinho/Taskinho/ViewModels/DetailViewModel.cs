@@ -13,10 +13,10 @@ namespace Taskinho.ViewModels
     public class DetailViewModel : ViewModelBase
     {
         Tarefa tarefa;
-        LocalDB _connection;
+        LocalDB connection;
 
-        private List<Tarefa> _Tarefas;
-        public List<Tarefa> Tarefas
+        private ObservableCollection<Tarefa> _Tarefas;
+        public ObservableCollection<Tarefa> Tarefas
         {
             get { return _Tarefas; }
             set
@@ -53,12 +53,13 @@ namespace Taskinho.ViewModels
 
         private readonly Services.IMessageService messageService;
         private readonly Services.INavigationService navigationService;
-        public DetailViewModel(List<Tarefa> Tlist)
+        public DetailViewModel()
         {
-            TarefasRetorno = Tlist;
+            //List<Tarefa> Tlist
+            //TarefasRetorno = Tlist;
             tarefa = new Tarefa();
-            _connection = new LocalDB();
-            Tarefas = _connection.GetT();
+            connection = new LocalDB();
+            Tarefas = new ObservableCollection<Tarefa>();
             AdicionarCommand = new Command(AdicionarAction);
             EditarCommand = new Command(TesteEditar);
             ExcluirCommand = new Command(ExcluirAction);
@@ -67,20 +68,28 @@ namespace Taskinho.ViewModels
         }
 
 
-        //Excluir action
-        private void ExcluirAction(object param)
-        {
-            Tarefa tarefa = (Tarefa)param;
-            _connection.DeleteT(tarefa);
-            
 
+        void ExcluirAction(object param)
+        {
+            tarefa = (Tarefa)param;
+            //_connection.DeleteT(tarefa);
+            Tarefas.Remove(tarefa);
+            messageService.ShowAsync("Teste");
         }
 
+        void AssinarAddMsg()
+        {
+            MessagingCenter.Subscribe<DetailViewModel>(this, "AdicionarTarefaMsg", (sender) =>
+            {
+            ObservableCollection<Tarefa> Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
+            });
+        }
 
-        private void AdicionarAction()
+        void AdicionarAction()
         {
             if (AdicionarCommand != null)
             {
+                AssinarAddMsg();
                 navigationService.NavigationToCadastro();
             }
             else
@@ -88,7 +97,6 @@ namespace Taskinho.ViewModels
                 messageService.ShowAsync("Falha na navegação");
             }
         }
-
         void TesteEditar()
         {
             messageService.ShowAsync("Editar Teste");
@@ -103,11 +111,6 @@ namespace Taskinho.ViewModels
         //    App.correctButtonPressed = (int)App.aBtn;
         //    ResetTimer2();
         //});
-
-
-
-
-
 
 
 
