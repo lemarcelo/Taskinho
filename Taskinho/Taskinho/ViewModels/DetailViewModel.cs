@@ -15,8 +15,8 @@ namespace Taskinho.ViewModels
         Tarefa tarefa;
         LocalDB connection;
 
-        private ObservableCollection<Tarefa> _Tarefas;
-        public ObservableCollection<Tarefa> Tarefas
+        private List<Tarefa> _Tarefas;
+        public List<Tarefa> Tarefas
         {
             get { return _Tarefas; }
             set
@@ -25,6 +25,8 @@ namespace Taskinho.ViewModels
                 NotifyPropertyChanged("Tarefas");
             }
         }
+
+
         private List<Tarefa> _TarefasRetorno;
         public List<Tarefa> TarefasRetorno
         {
@@ -55,11 +57,9 @@ namespace Taskinho.ViewModels
         private readonly Services.INavigationService navigationService;
         public DetailViewModel()
         {
-            //List<Tarefa> Tlist
-            //TarefasRetorno = Tlist;
             tarefa = new Tarefa();
             connection = new LocalDB();
-            Tarefas = new ObservableCollection<Tarefa>();
+            Tarefas = new List<Tarefa>(connection.GetT());
             AdicionarCommand = new Command(AdicionarAction);
             EditarCommand = new Command(TesteEditar);
             ExcluirCommand = new Command(ExcluirAction);
@@ -72,19 +72,23 @@ namespace Taskinho.ViewModels
         void ExcluirAction(object param)
         {
             tarefa = (Tarefa)param;
-            //_connection.DeleteT(tarefa);
-            Tarefas.Remove(tarefa);
-            messageService.ShowAsync("Teste");
+            //connection.DeleteT(tarefa);
+            //TODO - IDENTIFICAR O ITEM TRAZIDO COMO UM ITEM DA LISTA QUE TEMOS SENDO EXIBIDA.
+            //TODO - ONPROPERTY CHANGED NÃO ESTÁ EXECUTANDO PARA A REMOÇÃO
+            Tarefas.Remove(tarefa); 
+            //Tarefas = connection.GetT();
+            //messageService.ShowAsync("Teste");
         }
 
         void AssinarAddMsg()
         {
             MessagingCenter.Subscribe<DetailViewModel>(this, "AdicionarTarefaMsg", (sender) =>
             {
-            ObservableCollection<Tarefa> Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
+            Tarefas = new List<Tarefa>(connection.GetT());
+            //Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
             });
         }
-
+        
         void AdicionarAction()
         {
             if (AdicionarCommand != null)

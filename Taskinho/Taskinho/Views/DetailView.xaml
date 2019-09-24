@@ -90,12 +90,14 @@
             </Frame>
 
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                    <ListView ItemsSource="{Binding Tarefas}" HasUnevenRows="True" VerticalOptions="FillAndExpand" ItemTemplate="{StaticResource TarefaDataTemplateSelector}">
+
+                <ListView ItemsSource="{Binding Tarefas}" HasUnevenRows="True" VerticalOptions="FillAndExpand" ItemTemplate="{StaticResource TarefaDataTemplateSelector}">
+                    
                     <ListView.Behaviors>
                         
                     </ListView.Behaviors>
                     </ListView>
-                </StackLayout>
+            </StackLayout>
             
         </StackLayout>
     </ContentPage.Content>
