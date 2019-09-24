@@ -13,63 +13,66 @@ namespace Taskinho.ViewModels
 {
     public class CadastroTarefaViewModel : ViewModelBase
     {
-        Tarefa tarefa = new Tarefa();
-        private string _titulo;
         #region Props
+        Tarefa tarefa = new Tarefa();
+        private string _Titulo;
         public string Titulo
         {
-            get { return _titulo; }
+            get { return _Titulo; }
             set
             {
-                _titulo = value;
+                _Titulo = value;
                 NotifyPropertyChanged("Titulo");
             }
         }
-        private string _detalhes;
 
+        private string _Detalhes;
         public string Detalhes
         {
-            get { return _detalhes; }
+            get { return _Detalhes; }
             set
             {
-                _detalhes = value;
+                _Detalhes = value;
                 NotifyPropertyChanged("Detalhes");
             }
         }
-        private int _gId;
+
+        private int _Gid;
         public int Gid
         {
-            get { return _gId; }
+            get { return _Gid; }
             set
             {
-                _gId = value;
+                _Gid = value;
                 NotifyPropertyChanged("Gid");
             }
         }
 
-        private DateTime _prazo;
+        private DateTime _Prazo;
         public DateTime Prazo
         {
-            get { return _prazo; }
+            get { return _Prazo; }
             set
             {
-                _prazo = value;
+                _Prazo = value;
                 NotifyPropertyChanged("Prazo");
             }
-
         }
 
-        private string _status;
+
+        private string _Status;
         public string Status
         {
-            get { return _status; }
+            get { return _Status; }
             set
             {
-                _status = value;
+                _Status = value;
                 NotifyPropertyChanged("Status");
             }
         }
+
         #endregion
+
         public ICommand CancelarCommand
         {
             get;
@@ -83,11 +86,11 @@ namespace Taskinho.ViewModels
 
         private void Adicionar(object obj)
         {
+
             tarefa.IdGrupo = 0;
             tarefa.TarefaTitulo = Titulo;
             tarefa.TarefaDetalhes = Detalhes;
             tarefa.TarefaPrazo = Prazo;
-            tarefa.TarefaPrazo = DateTime.Now;
             tarefa.IdGrupo = Gid;
             tarefa.TarefaStatus = "p";
             LocalDB _connection = new LocalDB();
@@ -117,7 +120,7 @@ namespace Taskinho.ViewModels
 
         public CadastroTarefaViewModel()
         {
-            
+            Prazo = DateTime.Now;
             CancelarCommand = new Command(Cancelar);
             SalvarCommand = new Command(Adicionar);
 

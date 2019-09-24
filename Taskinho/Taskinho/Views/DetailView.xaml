@@ -49,10 +49,40 @@
             </DataTemplate>
             <DataTemplate x:Key="TarefaRealizada">
                 <ViewCell>
-                    <StackLayout Padding="10" BackgroundColor="Gray" HorizontalOptions="FillAndExpand">
-                        <Label Text="{Binding TarefaTitulo}" TextColor="White" />
-                        <Label Text="{Binding TarefaPrazo}" TextColor="White" />
-                    </StackLayout>
+
+                    <Grid BackgroundColor="#009ACD" CascadeInputTransparent="True" InputTransparent="True">
+                        <!--<Grid.GestureRecognizers>
+                            
+                        </Grid.GestureRecognizers>-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="28"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Text="R" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                        <StackLayout Grid.Column="1" Padding="10" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding TarefaTitulo}" TextColor="Gray" />
+                            <Label Text="{Binding TarefaPrazo}" TextColor="Gray" />
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Orientation="Horizontal" VerticalOptions="Center">
+                            <Label Text="Editar">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="|" />
+                            <Label Text="Excluir">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.ExcluirCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </Grid>
                 </ViewCell>
             </DataTemplate>
             <Util:TarefaDataTemplateSelector x:Key="TarefaDataTemplateSelector"

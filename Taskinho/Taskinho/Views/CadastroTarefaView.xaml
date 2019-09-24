@@ -14,15 +14,14 @@
             <Editor Text="{Binding Detalhes}" HeightRequest="150" WidthRequest="200" Placeholder="Detalhes" Keyboard="Text" />
             
             <Label Text="Prazo" HorizontalOptions="Center" />
-            
-            <DatePicker Date="{Binding Prazo}" TextColor="Black" HorizontalOptions="Center"/>
-            <TimePicker   TextColor="Black" HorizontalOptions="Center"/>
+
+            <DatePicker Date="{Binding Prazo.Date, StringFormat=''}" TextColor="Black" HorizontalOptions="Center"/>
+            <TimePicker Time="{Binding Prazo.Hour}" TextColor="Black" HorizontalOptions="Center"/>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="80">
                 <Button Text="Cancelar" CornerRadius="10" Command="{Binding CancelarCommand}" />
                 <Button Text="Salvar" CornerRadius="10"  Command="{Binding SalvarCommand}"/>
             </StackLayout>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

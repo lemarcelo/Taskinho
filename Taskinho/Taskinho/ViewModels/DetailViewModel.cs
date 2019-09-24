@@ -72,6 +72,7 @@ namespace Taskinho.ViewModels
         void ExcluirAction(object param)
         {
             tarefa = (Tarefa)param;
+            connection.DeleteT(tarefa);
             Tarefas.Remove(tarefa);
         }
 
@@ -99,9 +100,6 @@ namespace Taskinho.ViewModels
         {
             messageService.ShowAsync("Editar Teste");
         }
-
-
-        //TODO - VERIFICAR POSSIBILIDADE DE UTILIZAR O OBSERVABLE COLLECTION
 
     }
 }
