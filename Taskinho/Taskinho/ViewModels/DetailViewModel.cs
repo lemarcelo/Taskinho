@@ -15,14 +15,14 @@ namespace Taskinho.ViewModels
         Tarefa tarefa;
         LocalDB connection;
 
-        private List<Tarefa> _Tarefas;
-        public List<Tarefa> Tarefas
+        private ObservableCollection<Tarefa> _Tarefas;
+        public ObservableCollection<Tarefa> Tarefas
         {
             get { return _Tarefas; }
             set
             {
                 _Tarefas = value;
-                NotifyPropertyChanged("Tarefas");
+                //NotifyPropertyChanged("Tarefas");
             }
         }
 
@@ -59,7 +59,7 @@ namespace Taskinho.ViewModels
         {
             tarefa = new Tarefa();
             connection = new LocalDB();
-            Tarefas = new List<Tarefa>(connection.GetT());
+            Tarefas = new ObservableCollection<Tarefa>(connection.GetT());
             AdicionarCommand = new Command(AdicionarAction);
             EditarCommand = new Command(TesteEditar);
             ExcluirCommand = new Command(ExcluirAction);
@@ -72,20 +72,14 @@ namespace Taskinho.ViewModels
         void ExcluirAction(object param)
         {
             tarefa = (Tarefa)param;
-            //connection.DeleteT(tarefa);
-            //TODO - IDENTIFICAR O ITEM TRAZIDO COMO UM ITEM DA LISTA QUE TEMOS SENDO EXIBIDA.
-            //TODO - ONPROPERTY CHANGED NÃO ESTÁ EXECUTANDO PARA A REMOÇÃO
-            Tarefas.Remove(tarefa); 
-            //Tarefas = connection.GetT();
-            //messageService.ShowAsync("Teste");
+            Tarefas.Remove(tarefa);
         }
 
         void AssinarAddMsg()
         {
             MessagingCenter.Subscribe<DetailViewModel>(this, "AdicionarTarefaMsg", (sender) =>
             {
-            Tarefas = new List<Tarefa>(connection.GetT());
-            //Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
+                Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
             });
         }
         
@@ -107,18 +101,6 @@ namespace Taskinho.ViewModels
         }
 
 
-        //Desconsiderar
-
-        //var aButtonClickedCommand = new Command(() =>
-        //{
-        //    App.DB.IncrementScore(App.cfs, App.phrase, (int)App.aBtn);
-        //    App.correctButtonPressed = (int)App.aBtn;
-        //    ResetTimer2();
-        //});
-
-
-
-        //TODO - ADICIONAR TAREFA CRIADA NO CADASTRO A DETALHES
         //TODO - VERIFICAR POSSIBILIDADE DE UTILIZAR O OBSERVABLE COLLECTION
 
     }
