@@ -95,7 +95,7 @@ namespace Taskinho.ViewModels
             tarefa.TarefaStatus = "p";
             LocalDB _connection = new LocalDB();
             _connection.InsertT(tarefa);
-            EnviarAddMsg();
+            SendAddMsg();
             messageService.ShowAsync("Tarefa Salva");
             navigationService.BackToPrincipal();
         }
@@ -108,15 +108,23 @@ namespace Taskinho.ViewModels
             }
         }
         
-        void EnviarAddMsg()
+        void SendAddMsg()
         {
             var detailViewModel = new DetailViewModel();
-            MessagingCenter.Send<DetailViewModel>(detailViewModel, "AddTarefaMsg");
+            MessagingCenter.Send(detailViewModel, "AddMsg");
         }
-        void EnviarEditMsg()
+
+        public void RegEditReqMsg()
         {
-            var detailViewModel = new DetailViewModel();
-            MessagingCenter.Send<DetailViewModel, Tarefa>(detailViewModel, "EditTarefaMsg", tarefa);
+            MessagingCenter.Subscribe<CadastroTarefaViewModel, Tarefa>(this, "EditReqMsg", (sender, args) =>
+            {
+                tarefa = args;
+                Titulo = args.TarefaTitulo;
+                Detalhes = args.TarefaDetalhes;
+                Prazo = args.TarefaPrazo;
+                Titulo = args.TarefaTitulo;
+
+            });
         }
 
 

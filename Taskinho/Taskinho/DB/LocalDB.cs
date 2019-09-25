@@ -32,7 +32,7 @@ namespace Taskinho.DB
         {
             return _connection.Table<Tarefa>().ToList();
         }
-        //TODO - ATUALIZAR TAREFA //_connection.Table<Tarefa>().Where(a => a.IdTarefa == idT).FirstOrDefault();
+        //TODO - UPDATE TAREFA //_connection.Table<Tarefa>().Where(a => a.IdTarefa == idT).FirstOrDefault();
         public int UpdateT(Tarefa tarefa)
         {
             return _connection.Update(tarefa);

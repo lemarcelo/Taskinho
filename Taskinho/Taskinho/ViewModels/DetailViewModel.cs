@@ -23,7 +23,7 @@ namespace Taskinho.ViewModels
             set
             {
                 _Tarefas = value;
-                //NotifyPropertyChanged("Tarefas");
+                NotifyPropertyChanged("Tarefas");
             }
         }
         private List<Tarefa> _TarefasRetorno;
@@ -75,27 +75,25 @@ namespace Taskinho.ViewModels
             Tarefas.Remove(tarefa);
         }
 
-        void AssinarAddMsg()
+        async void RegAddMsg()
         {
-            MessagingCenter.Subscribe<DetailViewModel>(this, "AddTarefaMsg", (sender) =>
+            MessagingCenter.Subscribe<DetailViewModel>(this, "AddMsg", (sender) =>
             {
                 Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
             });
         }
 
-        void AssinarEditMsg()
+        void SendEditReq( Tarefa param)
         {
-            MessagingCenter.Subscribe<DetailViewModel, Tarefa>(this, "EditTarefaMsg", (sender, args) =>
-            {
-                Tarefas.LastOrDefault(x=>x.IdTarefa == args.IdTarefa);
-            });
+            CadastroTarefaViewModel cadVm = new CadastroTarefaViewModel();
+            MessagingCenter.Send(cadVm, "EditReqMsg", param);
         }
         
         void AdicionarAction()
         {
             if (AdicionarCommand != null)
             {
-                AssinarAddMsg();
+                RegAddMsg();
                 navigationService.NavigationToCadastro();
             }
             else
@@ -107,7 +105,9 @@ namespace Taskinho.ViewModels
         {
             if (EditarCommand != null)
             {
-                AssinarEditMsg();
+                CadastroTarefaViewModel cadastrotarefa = new CadastroTarefaViewModel();
+                SendEditReq((Tarefa)param);
+
                 //TODO - FAZER ENVIO POR MESSAGINGCENTER DO ITEM A SER EDITADO NA TELA DE CADASTRO
                 navigationService.NavigationToCadastro();
             }
@@ -117,7 +117,7 @@ namespace Taskinho.ViewModels
             }
 
             tarefa = (Tarefa)param;
-            connection.UpdateT(tarefa);
+            //connection.UpdateT(tarefa);
             
         }
 
