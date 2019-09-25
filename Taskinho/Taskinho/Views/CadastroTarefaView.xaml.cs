@@ -16,6 +16,7 @@ namespace Taskinho.Views
         {
             InitializeComponent();
             BindingContext = new ViewModels.CadastroTarefaViewModel();
+            //TODO - CRIAR DATATEMPLATE SELECTOR PARA EDIÇÃO DOS DADOS
         }
     }
 }

@@ -7,6 +7,7 @@ using Taskinho.DB;
 using Taskinho.ViewModels;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Taskinho.ViewModels
 {
@@ -25,8 +26,6 @@ namespace Taskinho.ViewModels
                 //NotifyPropertyChanged("Tarefas");
             }
         }
-
-
         private List<Tarefa> _TarefasRetorno;
         public List<Tarefa> TarefasRetorno
         {
@@ -61,7 +60,7 @@ namespace Taskinho.ViewModels
             connection = new LocalDB();
             Tarefas = new ObservableCollection<Tarefa>(connection.GetT());
             AdicionarCommand = new Command(AdicionarAction);
-            EditarCommand = new Command(TesteEditar);
+            EditarCommand = new Command(EditarAction);
             ExcluirCommand = new Command(ExcluirAction);
             this.messageService = DependencyService.Get<Services.IMessageService>();
             this.navigationService = DependencyService.Get<Services.INavigationService>();
@@ -78,9 +77,17 @@ namespace Taskinho.ViewModels
 
         void AssinarAddMsg()
         {
-            MessagingCenter.Subscribe<DetailViewModel>(this, "AdicionarTarefaMsg", (sender) =>
+            MessagingCenter.Subscribe<DetailViewModel>(this, "AddTarefaMsg", (sender) =>
             {
                 Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
+            });
+        }
+
+        void AssinarEditMsg()
+        {
+            MessagingCenter.Subscribe<DetailViewModel, Tarefa>(this, "EditTarefaMsg", (sender, args) =>
+            {
+                Tarefas.LastOrDefault(x=>x.IdTarefa == args.IdTarefa);
             });
         }
         
@@ -96,9 +103,22 @@ namespace Taskinho.ViewModels
                 messageService.ShowAsync("Falha na navegação");
             }
         }
-        void TesteEditar()
+        void EditarAction(object param)
         {
-            messageService.ShowAsync("Editar Teste");
+            if (EditarCommand != null)
+            {
+                AssinarEditMsg();
+                //TODO - FAZER ENVIO POR MESSAGINGCENTER DO ITEM A SER EDITADO NA TELA DE CADASTRO
+                navigationService.NavigationToCadastro();
+            }
+            else
+            {
+                messageService.ShowAsync("Falha na navegação");
+            }
+
+            tarefa = (Tarefa)param;
+            connection.UpdateT(tarefa);
+            
         }
 
     }

@@ -111,7 +111,12 @@ namespace Taskinho.ViewModels
         void EnviarAddMsg()
         {
             var detailViewModel = new DetailViewModel();
-            MessagingCenter.Send<DetailViewModel>(detailViewModel, "AdicionarTarefaMsg");
+            MessagingCenter.Send<DetailViewModel>(detailViewModel, "AddTarefaMsg");
+        }
+        void EnviarEditMsg()
+        {
+            var detailViewModel = new DetailViewModel();
+            MessagingCenter.Send<DetailViewModel, Tarefa>(detailViewModel, "EditTarefaMsg", tarefa);
         }
 
 

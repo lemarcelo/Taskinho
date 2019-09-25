@@ -20,6 +20,10 @@ namespace Taskinho.DB
             _connection.CreateTable<Grupo>();
             //TODO - IS NULL OR EPNTY PRA CRIAR O BANCO ->https://youtu.be/y9wACg61r4M?t=511
         }
+        public List<Tarefa> testeTable()
+        {
+            return _connection.Table<Tarefa>().ToList();
+        }
         public void InsertT (Tarefa tarefa)
         {
             _connection.Insert(tarefa);
@@ -29,9 +33,9 @@ namespace Taskinho.DB
             return _connection.Table<Tarefa>().ToList();
         }
         //TODO - ATUALIZAR TAREFA //_connection.Table<Tarefa>().Where(a => a.IdTarefa == idT).FirstOrDefault();
-        public void UpdateT(Tarefa tarefa)
+        public int UpdateT(Tarefa tarefa)
         {
-
+            return _connection.Update(tarefa);
         }
         //TODO - DELETAR TAREFA
         public void DeleteT(Tarefa tarefa)
