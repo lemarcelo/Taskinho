@@ -15,8 +15,6 @@ namespace Taskinho
             DependencyService.Register<Services.INavigationService, Views.Services.NavigationService>();
             InitializeComponent();
             MainPage = new Views.PrincipalView();
-            CadastroTarefaViewModel cadVm = new CadastroTarefaViewModel();
-            cadVm.RegEditReqMsg();
         }
 
         protected override void OnStart()

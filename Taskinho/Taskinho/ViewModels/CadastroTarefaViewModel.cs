@@ -95,7 +95,6 @@ namespace Taskinho.ViewModels
             tarefa.TarefaStatus = "p";
             LocalDB _connection = new LocalDB();
             _connection.InsertT(tarefa);
-            SendAddMsg();
             messageService.ShowAsync("Tarefa Salva");
             navigationService.BackToPrincipal();
         }
@@ -118,12 +117,10 @@ namespace Taskinho.ViewModels
         {
             MessagingCenter.Subscribe<CadastroTarefaViewModel, Tarefa>(this, "EditReqMsg", (sender, args) =>
             {
-                tarefa = args;
+                //messageService.ShowAsync("Registro" + args.TarefaTitulo);
                 Titulo = args.TarefaTitulo;
                 Detalhes = args.TarefaDetalhes;
                 Prazo = args.TarefaPrazo;
-                Titulo = args.TarefaTitulo;
-
             });
         }
 
@@ -133,6 +130,7 @@ namespace Taskinho.ViewModels
 
         public CadastroTarefaViewModel()
         {
+            RegEditReqMsg();
             Prazo = DateTime.Now;
             CancelarCommand = new Command(Cancelar);
             SalvarCommand = new Command(Adicionar);

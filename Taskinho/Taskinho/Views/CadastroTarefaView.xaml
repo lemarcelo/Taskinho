@@ -9,14 +9,14 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
             <Label Margin="0,20,0,0" Text="Pagina Cadastro" FontSize="Large" HorizontalOptions="Center" />
-            
-            <Entry Placeholder="Titulo" Text="{Binding Titulo}" />
-            <Editor Text="{Binding Detalhes}" HeightRequest="150" WidthRequest="200" Placeholder="Detalhes" Keyboard="Text" />
+
+            <Entry Placeholder="Titulo" Text="{Binding Titulo, Mode=TwoWay}" />
+            <Editor Text="{Binding Detalhes, Mode=TwoWay}" HeightRequest="150" WidthRequest="200" Placeholder="Detalhes" Keyboard="Text" />
             
             <Label Text="Prazo" HorizontalOptions="Center" />
 
-            <DatePicker Date="{Binding Prazo.Date, StringFormat=''}" TextColor="Black" HorizontalOptions="Center"/>
-            <TimePicker Time="{Binding Prazo.Hour}" TextColor="Black" HorizontalOptions="Center"/>
+            <DatePicker Date="{Binding Prazo.Date, StringFormat='', Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center"/>
+            <TimePicker Time="{Binding Prazo.Hour, Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center"/>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="80">
                 <Button Text="Cancelar" CornerRadius="10" Command="{Binding CancelarCommand}" />

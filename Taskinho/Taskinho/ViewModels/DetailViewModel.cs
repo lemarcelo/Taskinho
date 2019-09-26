@@ -75,18 +75,19 @@ namespace Taskinho.ViewModels
             Tarefas.Remove(tarefa);
         }
 
-        async void RegAddMsg()
+        void RegAddMsg()
         {
             MessagingCenter.Subscribe<DetailViewModel>(this, "AddMsg", (sender) =>
             {
                 Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
+                MessagingCenter.Unsubscribe<DetailViewModel>(this, "AddMsg");
             });
         }
 
-        void SendEditReq( Tarefa param)
+        void SendEditReq(Tarefa clicked)
         {
             CadastroTarefaViewModel cadVm = new CadastroTarefaViewModel();
-            MessagingCenter.Send(cadVm, "EditReqMsg", param);
+            MessagingCenter.Send(cadVm, "EditReqMsg", clicked);
         }
         
         void AdicionarAction()
@@ -105,11 +106,11 @@ namespace Taskinho.ViewModels
         {
             if (EditarCommand != null)
             {
-                CadastroTarefaViewModel cadastrotarefa = new CadastroTarefaViewModel();
+                navigationService.NavigationToCadastro();
                 SendEditReq((Tarefa)param);
 
                 //TODO - FAZER ENVIO POR MESSAGINGCENTER DO ITEM A SER EDITADO NA TELA DE CADASTRO
-                navigationService.NavigationToCadastro();
+
             }
             else
             {
