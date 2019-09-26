@@ -35,7 +35,6 @@ namespace Taskinho.ViewModels
                 _TarefasRetorno = value;
             }
         }
-
         public Command AdicionarCommand
         {
             get;
@@ -51,6 +50,7 @@ namespace Taskinho.ViewModels
             get;
             set;
         }
+
 
         private readonly Services.IMessageService messageService;
         private readonly Services.INavigationService navigationService;
