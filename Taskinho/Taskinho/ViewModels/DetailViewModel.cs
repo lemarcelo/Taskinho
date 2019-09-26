@@ -109,8 +109,6 @@ namespace Taskinho.ViewModels
                 navigationService.NavigationToCadastro();
                 SendEditReq((Tarefa)param);
 
-                //TODO - FAZER ENVIO POR MESSAGINGCENTER DO ITEM A SER EDITADO NA TELA DE CADASTRO
-
             }
             else
             {

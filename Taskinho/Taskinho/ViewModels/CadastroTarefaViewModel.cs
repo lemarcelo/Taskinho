@@ -86,7 +86,6 @@ namespace Taskinho.ViewModels
 
         private void Adicionar(object obj)
         {
-
             tarefa.IdGrupo = 0;
             tarefa.TarefaTitulo = Titulo;
             tarefa.TarefaDetalhes = Detalhes;
@@ -96,6 +95,7 @@ namespace Taskinho.ViewModels
             LocalDB _connection = new LocalDB();
             _connection.InsertT(tarefa);
             messageService.ShowAsync("Tarefa Salva");
+            SendAddMsg();
             navigationService.BackToPrincipal();
         }
 
@@ -117,7 +117,6 @@ namespace Taskinho.ViewModels
         {
             MessagingCenter.Subscribe<CadastroTarefaViewModel, Tarefa>(this, "EditReqMsg", (sender, args) =>
             {
-                //messageService.ShowAsync("Registro" + args.TarefaTitulo);
                 Titulo = args.TarefaTitulo;
                 Detalhes = args.TarefaDetalhes;
                 Prazo = args.TarefaPrazo;
