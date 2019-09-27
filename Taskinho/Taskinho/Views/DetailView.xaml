@@ -10,10 +10,37 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="TarefaPendente">
+
                 <ViewCell>
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <BoxView BackgroundColor="LightSkyBlue" Grid.RowSpan="2"/>
+                        <Label Grid.Column="1"
+                           Text="{Binding TarefaTitulo}"
+                           FontAttributes="Bold" />
+                        <Label Grid.Row="1"
+                           Grid.Column="2"
+                           Text="Exitar | Excluir"
+                           VerticalOptions="End" />
+                        <Label Grid.Row="2"
+                           Grid.Column="1"
+                           Text="{Binding TarefaPrazo}"
+                           VerticalOptions="End" />
+                    </Grid>
+                </ViewCell>
+                
+                <!--<ViewCell>
 
                     <Frame CornerRadius="10" Padding="10" Margin="10" HorizontalOptions="FillAndExpand" >
-                        <StackLayout Orientation="Horizontal" >
+                        <StackLayout Orientation="Horizontal" Spacing="8">
                             <StackLayout Grid.Column="1">
                                 <Label Grid.Row="0" Text="{Binding TarefaTitulo}" FontSize="Default" TextColor="#5ED055"/>
                                 <Label Grid.Row="1" Text="{Binding TarefaPrazo}" FontSize="Body" TextColor="#5ED055" />
@@ -23,8 +50,35 @@
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Label Text="|" />
-                            <Label Text="Excluir" HorizontalOptions="EndAndExpand">
+                            <Label Text="|" HorizontalOptions="End"/>
+                            <Label Text="Excluir" HorizontalOptions="End">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.ExcluirCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </Frame>
+
+                </ViewCell>-->
+            </DataTemplate>
+
+
+            <DataTemplate x:Key="TarefaRealizada">
+                <ViewCell>
+
+                    <Frame CornerRadius="10" BorderColor="DeepSkyBlue" Padding="10" Margin="10" HorizontalOptions="FillAndExpand"  BackgroundColor="LightGray" >
+                        <StackLayout Orientation="Horizontal" Spacing="8">
+                            <StackLayout Grid.Column="1" >
+                                <Label Grid.Row="0" Text="{Binding TarefaTitulo}" FontSize="Default" TextColor="#5ED055"/>
+                                <Label Grid.Row="1" Text="{Binding TarefaPrazo}" FontSize="Body" TextColor="#5ED055" />
+                            </StackLayout>
+                            <Label Text="Editar" HorizontalOptions="EndAndExpand">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="|" HorizontalOptions="End"/>
+                            <Label Text="Excluir" HorizontalOptions="End">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.ExcluirCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
                                 </Label.GestureRecognizers>
@@ -34,53 +88,14 @@
 
                 </ViewCell>
             </DataTemplate>
-            <DataTemplate x:Key="TarefaRealizada">
-                <ViewCell>
-
-                    <Grid BackgroundColor="#009ACD" CascadeInputTransparent="True" InputTransparent="True">
-                        <!--<Grid.GestureRecognizers>
-                            
-                        </Grid.GestureRecognizers>-->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="28"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Column="0" Text="R" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
-
-                        <StackLayout Grid.Column="1" Padding="10" HorizontalOptions="FillAndExpand">
-                            <Label Text="{Binding TarefaTitulo}" TextColor="Gray" />
-                            <Label Text="{Binding TarefaPrazo}" TextColor="Gray" />
-                        </StackLayout>
-                        <StackLayout Grid.Column="2" Orientation="Horizontal" VerticalOptions="Center">
-                            <Label Text="Editar">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                            <Label Text="|" />
-                            <Label Text="Excluir">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.ExcluirCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                        </StackLayout>
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
             <Util:TarefaDataTemplateSelector x:Key="TarefaDataTemplateSelector"
                 TarefaPendenteTemplate="{StaticResource TarefaPendente}"
                 TarefaRealizadaTemplate="{StaticResource TarefaRealizada}"
                 />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <ContentPage.Content>
 
+    <ContentPage.Content>
         <StackLayout>
             <Frame CornerRadius="10" BackgroundColor="#2196F3" Margin="10">
                 <StackLayout BackgroundColor="#2196F3" HeightRequest="150">
@@ -99,8 +114,10 @@
             </Frame>
             
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                
-                <ListView ItemsSource="{Binding Tarefas}" HasUnevenRows="True" VerticalOptions="FillAndExpand" ItemTemplate="{StaticResource TarefaDataTemplateSelector}">
+
+                <ListView ItemsSource="{Binding Tarefas}" HasUnevenRows="True" VerticalOptions="FillAndExpand" ItemTemplate="{StaticResource TarefaDataTemplateSelector}"
+                          SeparatorColor="#2196F3"
+                          SelectionMode="None">
                 </ListView>
             </StackLayout>
             
