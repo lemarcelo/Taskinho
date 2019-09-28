@@ -70,8 +70,9 @@ namespace Taskinho.ViewModels
 
         void ExcluirAction(object param)
         {
+            messageService.ShowAsync("Deseja Excluir \r"+tarefa.TarefaTitulo.ToUpper()+"?");
             tarefa = (Tarefa)param;
-            connection.DeleteT(tarefa);
+            //connection.DeleteT(tarefa);
             Tarefas.Remove(tarefa);
         }
 
