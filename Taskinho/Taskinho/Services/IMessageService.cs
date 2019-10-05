@@ -8,5 +8,6 @@ namespace Taskinho.Services
     public interface IMessageService
     {
         Task ShowAsync(string message);
+        Task<bool> ShowAsyncBool(string title, string message);
     }
 }

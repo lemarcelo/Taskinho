@@ -8,11 +8,15 @@ using Taskinho.ViewModels;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Taskinho.ViewModels
 {
     public class DetailViewModel : ViewModelBase
     {
+
+
+
         Tarefa tarefa;
         LocalDB connection;
 
@@ -66,14 +70,26 @@ namespace Taskinho.ViewModels
             this.navigationService = DependencyService.Get<Services.INavigationService>();
         }
 
-
-
         void ExcluirAction(object param)
         {
-            messageService.ShowAsync("Deseja Excluir \r"+tarefa.TarefaTitulo.ToUpper()+"?");
-            tarefa = (Tarefa)param;
+            messageService.ShowAsyncBool("Titulo", "Mensagem");
+
+            Views.Services.MessageService Msgs = new Views.Services.MessageService();
+            //tarefa = (Tarefa)param;
+            //Tarefas.Remove(tarefa);
             //connection.DeleteT(tarefa);
-            Tarefas.Remove(tarefa);
+
+        }
+        public void Show(object sender, EventArgs e)
+        {
+            messageService.ShowAsync("Show Com Event");
+        }
+        public void VerificarMensagem()
+        {
+            if (true)
+            {
+
+            }
         }
 
         void RegAddMsg()
