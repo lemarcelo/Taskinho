@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Pages;
+using .Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,10 @@ namespace Taskinho.Views.Services
     {
         public async Task ShowAsync(string message)
         {
-            await App.Current.MainPage.DisplayAlert("Titulo", "Mensagem", "Ok", "Cancel");
+            //await App.Current.MainPage.DisplayAlert("Titulo", "Mensagem", "Ok", "Cancel");
+
+            var page = new Views.Popups.PopUpDelete();
+            await PopupNavigation.Instance.PushAsync(page);
         }
 
         public async Task<bool> ShowAsyncBool(string title, string message)

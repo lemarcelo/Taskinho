@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Rg.Plugins.Popup.Services;
 
 namespace Taskinho.ViewModels
 {
@@ -72,7 +73,8 @@ namespace Taskinho.ViewModels
 
         void ExcluirAction(object param)
         {
-            messageService.ShowAsyncBool("Titulo", "Mensagem");
+            messageService.ShowAsync("Mensagem");
+
 
             Views.Services.MessageService Msgs = new Views.Services.MessageService();
             //tarefa = (Tarefa)param;
