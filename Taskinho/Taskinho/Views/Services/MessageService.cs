@@ -1,5 +1,5 @@
 ﻿using Rg.Plugins.Popup.Pages;
-using .Services;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +14,7 @@ namespace Taskinho.Views.Services
         {
             //await App.Current.MainPage.DisplayAlert("Titulo", "Mensagem", "Ok", "Cancel");
 
-            var page = new Views.Popups.PopUpDelete();
+            var page = new Views.Popups.PopupView();
             await PopupNavigation.Instance.PushAsync(page);
         }
 

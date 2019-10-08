@@ -4,19 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Taskinho.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PopUpDelete : PopupPage
+    public partial class PopupView : PopupPage
     {
-        public PopUpDelete()
+        public PopupView()
         {
+            BindingContext = new ViewModels.Popups.PopupViewModel();
             InitializeComponent();
         }
-
     }
 }

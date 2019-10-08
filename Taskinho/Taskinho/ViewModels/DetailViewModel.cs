@@ -75,8 +75,6 @@ namespace Taskinho.ViewModels
         {
             messageService.ShowAsync("Mensagem");
 
-
-            Views.Services.MessageService Msgs = new Views.Services.MessageService();
             //tarefa = (Tarefa)param;
             //Tarefas.Remove(tarefa);
             //connection.DeleteT(tarefa);

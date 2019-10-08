@@ -8,8 +8,12 @@ namespace Taskinho.Util
 {
     public class TarefaDataTemplateSelector : DataTemplateSelector
     {
-        public int num = 0;
-        public enum numero { a, b, c, d }
+        //[sem uso]
+        //public int num = 0;
+        //public enum numero { a, b, c, d }
+
+            //TODO - CRIAR DATA TEMPLATE PARA STACKLAYOUT DE EDIÇÃO OU EXCLUSÃO
+
         public DataTemplate TarefaPendenteTemplate { get; set; }
         public DataTemplate TarefaRealizadaTemplate { get; set; }
 
