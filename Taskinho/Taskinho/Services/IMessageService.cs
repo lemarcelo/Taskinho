@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Taskinho.Model;
 
 namespace Taskinho.Services
 {
     public interface IMessageService
     {
         Task ShowAsync(string message);
-        Task<bool> ShowAsyncBool(string title, string message);
+        Task ShowAskAsync();
+        Task ShowPage(Tarefa tarefa);
     }
 }

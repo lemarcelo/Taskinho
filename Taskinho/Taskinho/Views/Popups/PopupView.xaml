@@ -14,25 +14,23 @@
       PositionOut="Center"
       ScaleIn="1"
       ScaleOut="0.7"
-      DurationIn="200"
+      DurationIn="1000"
       EasingIn="SpringIn"
             EasingOut="SpringOut"/>
     </pages:PopupPage.Animation>
-    
+
     <StackLayout
-        
              BackgroundColor="White"
             IsClippedToBounds="True"
              HorizontalOptions="Center"
              VerticalOptions="Center"
             Padding="10, 5"
             Spacing="3">
-        <Label Text="Deseja excluir esta tarefa?" />
-
+        <Entry Text="{Binding Tarefa.TarefaTitulo}" />
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="80">
-            <Button Text="Cancelar" CornerRadius="10"  />
-            <Button Text="Salvar" CornerRadius="10" />
+            <Button Text="Enviar" CornerRadius="10" Command="{Binding EnviarMsg}"/>
+            <Button Text="Registrar" CornerRadius="10" Command="{Binding RegistrarMsg}"/>
         </StackLayout>
 
 

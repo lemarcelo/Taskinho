@@ -71,26 +71,6 @@ namespace Taskinho.ViewModels
             this.navigationService = DependencyService.Get<Services.INavigationService>();
         }
 
-        void ExcluirAction(object param)
-        {
-            messageService.ShowAsync("Mensagem");
-
-            //tarefa = (Tarefa)param;
-            //Tarefas.Remove(tarefa);
-            //connection.DeleteT(tarefa);
-
-        }
-        public void Show(object sender, EventArgs e)
-        {
-            messageService.ShowAsync("Show Com Event");
-        }
-        public void VerificarMensagem()
-        {
-            if (true)
-            {
-
-            }
-        }
 
         void RegAddMsg()
         {
@@ -101,12 +81,17 @@ namespace Taskinho.ViewModels
             });
         }
 
-        void SendEditReq(Tarefa clicked)
+        void SendEditReq(Tarefa ClickedTask)
         {
             CadastroTarefaViewModel cadVm = new CadastroTarefaViewModel();
-            MessagingCenter.Send(cadVm, "EditReqMsg", clicked);
+            MessagingCenter.Send(cadVm, "EditReqMsg", ClickedTask);
         }
-        
+
+        void SendDeleteReq()
+        {
+            messageService.ShowAskAsync();
+        }
+
         void AdicionarAction()
         {
             if (AdicionarCommand != null)
@@ -131,10 +116,26 @@ namespace Taskinho.ViewModels
             {
                 messageService.ShowAsync("Falha na navegação");
             }
+        }
+        void ExcluirAction(object param)
+        {
+            if (ExcluirCommand != null)
+            {
+                SendDeleteReq();
+                messageService.ShowAskAsync();
+            }
+            else
+            {
+                messageService.ShowAsync("Falha na navegação");
+            }
 
             tarefa = (Tarefa)param;
+
             //connection.UpdateT(tarefa);
-            
+            //tarefa = (Tarefa)param;
+            //Tarefas.Remove(tarefa);
+            //connection.DeleteT(tarefa);
+
         }
 
     }
