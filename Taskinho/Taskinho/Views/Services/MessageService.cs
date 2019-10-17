@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace Taskinho.Views.Services
 {
-    public class MessageService : Taskinho.Services.IMessageService
+    public class MessageService : Taskinho.Services.IMessageService 
     {
         public async Task ShowAsync(string message)
         {
