@@ -113,7 +113,7 @@ namespace Taskinho.ViewModels
             MessagingCenter.Send(detailViewModel, "AddMsg");
         }
 
-        public void RegEditReqMsg()
+        public void ReqEditSub()
         {
             MessagingCenter.Subscribe<CadastroTarefaViewModel, Tarefa>(this, "EditReqMsg", (sender, args) =>
             {
@@ -129,7 +129,6 @@ namespace Taskinho.ViewModels
 
         public CadastroTarefaViewModel()
         {
-            RegEditReqMsg();
             Prazo = DateTime.Now;
             CancelarCommand = new Command(Cancelar);
             SalvarCommand = new Command(Adicionar);

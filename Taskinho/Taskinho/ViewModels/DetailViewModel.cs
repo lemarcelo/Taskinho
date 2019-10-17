@@ -15,7 +15,16 @@ namespace Taskinho.ViewModels
 {
     public class DetailViewModel : ViewModelBase
     {
-
+        CadastroTarefaViewModel cadastroVm;
+        CadastroTarefaViewModel CadastrarVm()
+        {
+            if (cadastroVm == null)
+            {
+                cadastroVm = new CadastroTarefaViewModel();
+                return cadastroVm;
+            }
+            else return cadastroVm;
+        }
 
 
         Tarefa tarefa;
@@ -71,7 +80,6 @@ namespace Taskinho.ViewModels
             this.navigationService = DependencyService.Get<Services.INavigationService>();
         }
 
-
         void RegAddMsg()
         {
             MessagingCenter.Subscribe<DetailViewModel>(this, "AddMsg", (sender) =>
@@ -80,18 +88,16 @@ namespace Taskinho.ViewModels
                 MessagingCenter.Unsubscribe<DetailViewModel>(this, "AddMsg");
             });
         }
-
-        void SendEditReq(Tarefa ClickedTask)
+        void EditReq(Tarefa ClickedTask)
         {
-            CadastroTarefaViewModel cadVm = new CadastroTarefaViewModel();
-            MessagingCenter.Send(cadVm, "EditReqMsg", ClickedTask);
-        }
+            MessagingCenter.Send<CadastroTarefaViewModel,Tarefa>(CadastrarVm(), "EditReqMsg", ClickedTask);
+            cadastroVm.ReqEditSub();
 
+        }
         void SendDeleteReq()
         {
             messageService.ShowAskAsync();
         }
-
         void AdicionarAction()
         {
             if (AdicionarCommand != null)
@@ -108,9 +114,9 @@ namespace Taskinho.ViewModels
         {
             if (EditarCommand != null)
             {
+                EditReq((Tarefa)param);
                 navigationService.NavigationToCadastro();
-                SendEditReq((Tarefa)param);
-
+                
             }
             else
             {
@@ -128,14 +134,11 @@ namespace Taskinho.ViewModels
             {
                 messageService.ShowAsync("Falha na navegação");
             }
-
             tarefa = (Tarefa)param;
-
             //connection.UpdateT(tarefa);
             //tarefa = (Tarefa)param;
             //Tarefas.Remove(tarefa);
             //connection.DeleteT(tarefa);
-
         }
 
     }
