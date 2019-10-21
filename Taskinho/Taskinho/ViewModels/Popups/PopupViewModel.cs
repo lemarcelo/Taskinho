@@ -4,11 +4,15 @@ using System.Text;
 using Taskinho.Model;
 using Xamarin.Forms;
 using Taskinho.ViewModels;
+using Taskinho.Views.Services;
+
 
 namespace Taskinho.ViewModels.Popups
 {
     public class PopupViewModel : ViewModelBase
     {
+        bool exclusao = false;
+
         private Tarefa _Tarefa;
         public Tarefa Tarefa
         {
@@ -18,37 +22,45 @@ namespace Taskinho.ViewModels.Popups
             }
         }
 
-        public Command EnviarMsg
+        public Command Confirmar
         {
             get;
             set;
         }
-        public Command RegistrarMsg
+        public Command Negar
         {
             get;
             set;
         }
-        public PopupViewModel()
+        public delegate void ExclusaoDelegate();
+
+        public event ExclusaoDelegate ExclusaoEvent;
+
+
+        private readonly Services.INavigationService navigationService;
+        private readonly Services.IMessageService messageService;
+        public PopupViewModel(Tarefa tarefa = null, Grupo grupo = null)
         {
-             EnviarMsg = new Command(SendDeleteReqMsg);
-             RegistrarMsg = new Command(RegDeleteReqMsg);
+            tarefa = Tarefa;
+            Confirmar = new Command(ExcluirAction);
+            //Negar = new Command();
+
+            this.navigationService = DependencyService.Get<Services.INavigationService>();
+            this.messageService = DependencyService.Get<Services.IMessageService>();
         }
 
-        public void SendDeleteReqMsg()
+        private void ExcluirAction(object obj)
         {
+            ExclusaoEvent += PopupViewModel_ExclusaoEvent;
+            if ()
+            {
+                App.Current.MainPage.DisplayAlert("","Exclusão clicada","");
+            }
+        }
 
-            MessagingCenter.Send(this, "EditReqMsg");
-        }
-        public void RegDeleteReqMsg()
+        private void PopupViewModel_ExclusaoEvent()
         {
-                MessagingCenter.Subscribe<PopupViewModel>(this, "EditReqMsg", (sender) =>
-                {
-                    Tarefa.TarefaTitulo = "TesteMsg";
-            });
-        }
-        public void CancelDeleteReqMsg()
-        {
-            MessagingCenter.Unsubscribe<PopupViewModel>(this, "DeleteReqMsg");
+            throw new NotImplementedException();
         }
     }
 }

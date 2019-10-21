@@ -29,8 +29,8 @@
         <Entry Text="{Binding Tarefa.TarefaTitulo}" />
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="80">
-            <Button Text="Enviar" CornerRadius="10" Command="{Binding EnviarMsg}"/>
-            <Button Text="Registrar" CornerRadius="10" Command="{Binding RegistrarMsg}"/>
+            <Button Text="Enviar" CornerRadius="10" Command="{Binding Confirmar}"/>
+            <Button Text="Registrar" CornerRadius="10" Command="{Binding Negar}"/>
         </StackLayout>
 
 

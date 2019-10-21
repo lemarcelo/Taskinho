@@ -68,7 +68,7 @@ namespace Taskinho.ViewModels
 
         private readonly Services.IMessageService messageService;
         private readonly Services.INavigationService navigationService;
-        public DetailViewModel()
+        public DetailViewModel(Tarefa tarefa = null)
         {
             tarefa = new Tarefa();
             connection = new LocalDB();
@@ -90,8 +90,8 @@ namespace Taskinho.ViewModels
         }
         void EditReq(Tarefa ClickedTask)
         {
-            MessagingCenter.Send<CadastroTarefaViewModel,Tarefa>(CadastrarVm(), "EditReqMsg", ClickedTask);
             cadastroVm.ReqEditSub();
+            MessagingCenter.Send<CadastroTarefaViewModel, Tarefa>(CadastrarVm(), "EditReqMsg", ClickedTask);
 
         }
         void SendDeleteReq()
@@ -127,6 +127,10 @@ namespace Taskinho.ViewModels
         {
             if (ExcluirCommand != null)
             {
+
+                
+
+
                 SendDeleteReq();
                 messageService.ShowAskAsync();
             }
@@ -140,6 +144,8 @@ namespace Taskinho.ViewModels
             //Tarefas.Remove(tarefa);
             //connection.DeleteT(tarefa);
         }
+
+
 
     }
 }

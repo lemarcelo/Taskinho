@@ -7,7 +7,6 @@ namespace Taskinho.Behaviors
 {
     public class DetailBehaviors : Behavior<ContentPage>
     {
-        //TODO - MANDAR OS DETALHES PARA O FRAME TAPPED
         protected override void OnAttachedTo(ContentPage bindable)
         {
             base.OnAttachedTo(bindable);
