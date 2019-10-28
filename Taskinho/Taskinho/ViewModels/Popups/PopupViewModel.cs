@@ -11,10 +11,30 @@ namespace Taskinho.ViewModels.Popups
 {
     public class PopupViewModel : ViewModelBase
     {
-        bool exclusao = false;
+        public PopupViewModel(Tarefa TarefaParam)
+        {
+            /*Lembrete para perguntar sobre isto tarefa dentro da mainthread não funciona
+             pode ter relação com o contexto da aplicação mas não sei explicar o motivo*/
+            tarefa = new Tarefa();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                tarefa.TarefaTitulo = TarefaParam.TarefaTitulo;
+            });
+        }
+        //bool exclusao = false;
+        private string _jose;
+        public string jose
+        {
+            get { return _jose; }
+            set{ _jose = value;
+                NotifyPropertyChanged("jose");
+            }
+        }
+
+
 
         private Tarefa _Tarefa;
-        public Tarefa Tarefa
+        public Tarefa tarefa
         {
             get { return _Tarefa; }
             set { _Tarefa = value;
@@ -32,16 +52,13 @@ namespace Taskinho.ViewModels.Popups
             get;
             set;
         }
-        public delegate void ExclusaoDelegate();
-
-        public event ExclusaoDelegate ExclusaoEvent;
+        //public event EventHandler ExclusaoEvent;
 
 
         private readonly Services.INavigationService navigationService;
         private readonly Services.IMessageService messageService;
-        public PopupViewModel(Tarefa tarefa = null, Grupo grupo = null)
+        public PopupViewModel()
         {
-            tarefa = Tarefa;
             Confirmar = new Command(ExcluirAction);
             //Negar = new Command();
 
@@ -51,16 +68,8 @@ namespace Taskinho.ViewModels.Popups
 
         private void ExcluirAction(object obj)
         {
-            ExclusaoEvent += PopupViewModel_ExclusaoEvent;
-            if ()
-            {
-                App.Current.MainPage.DisplayAlert("","Exclusão clicada","");
-            }
+            messageService.ShowAskAsync(tarefa);
         }
 
-        private void PopupViewModel_ExclusaoEvent()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

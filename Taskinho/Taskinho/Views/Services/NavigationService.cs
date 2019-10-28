@@ -25,10 +25,10 @@ namespace Taskinho.Views.Services
         }
 
 
-        public NavigationService(Tarefa tarefa = null, Grupo grupo = null)
+        public NavigationService()
         {
-            Tarefa = tarefa;
-            Grupo = grupo;
+            //Tarefa = tarefa;
+            //Grupo = grupo;
         }
         public async Task NavigationToCadastro()
         {

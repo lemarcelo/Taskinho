@@ -26,7 +26,7 @@
              VerticalOptions="Center"
             Padding="10, 5"
             Spacing="3">
-        <Entry Text="{Binding Tarefa.TarefaTitulo}" />
+        <Label HorizontalOptions="Center" Text="{Binding tarefa.TarefaTitulo}" />
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="80">
             <Button Text="Enviar" CornerRadius="10" Command="{Binding Confirmar}"/>

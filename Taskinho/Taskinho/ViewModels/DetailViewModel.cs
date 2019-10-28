@@ -51,18 +51,15 @@ namespace Taskinho.ViewModels
         }
         public Command AdicionarCommand
         {
-            get;
-            set;
+            get;set;
         }
         public Command ExcluirCommand
         {
-            get;
-            set;
+            get;set;
         }
         public Command EditarCommand
         {
-            get;
-            set;
+            get;set;
         }
 
 
@@ -94,10 +91,7 @@ namespace Taskinho.ViewModels
             MessagingCenter.Send<CadastroTarefaViewModel, Tarefa>(CadastrarVm(), "EditReqMsg", ClickedTask);
 
         }
-        void SendDeleteReq()
-        {
-            messageService.ShowAskAsync();
-        }
+
         void AdicionarAction()
         {
             if (AdicionarCommand != null)
@@ -127,12 +121,7 @@ namespace Taskinho.ViewModels
         {
             if (ExcluirCommand != null)
             {
-
-                
-
-
-                SendDeleteReq();
-                messageService.ShowAskAsync();
+                messageService.ShowAskAsync((Tarefa)param);
             }
             else
             {

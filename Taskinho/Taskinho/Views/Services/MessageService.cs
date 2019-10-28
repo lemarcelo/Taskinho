@@ -14,21 +14,20 @@ namespace Taskinho.Views.Services
     {
         public async Task ShowAsync(string message)
         {
-            var page = new Views.Popups.PopupView();
-            await PopupNavigation.Instance.PushAsync(page);
+            //var page = new Popups.PopupView();
+            //await PopupNavigation.Instance.PushAsync(page);
         }
 
-        public async Task ShowAskAsync()
+        public async Task ShowAskAsync(Tarefa tarefa)
         {
-            ViewModels.Popups.PopupViewModel popupVm = new ViewModels.Popups.PopupViewModel();
-            var page = new Views.Popups.PopupView();
+            var page = new Popups.PopupView(tarefa);
             await PopupNavigation.Instance.PushAsync(page);
         }
 
         public async Task ShowPage(Tarefa tarefa)
         {
-            var page = new Views.Popups.PopupView();
-            await PopupNavigation.Instance.PushAsync(page);
+            //var page = new Views.Popups.PopupView();
+            //await PopupNavigation.Instance.PushAsync(page);
         }
     }
 }

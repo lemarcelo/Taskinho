@@ -94,7 +94,6 @@ namespace Taskinho.ViewModels
             tarefa.TarefaStatus = "p";
             LocalDB _connection = new LocalDB();
             _connection.InsertT(tarefa);
-            messageService.ShowAsync("Tarefa Salva");
             SendAddMsg();
             navigationService.BackToPrincipal();
         }
