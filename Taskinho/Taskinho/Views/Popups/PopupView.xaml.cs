@@ -13,9 +13,9 @@ namespace Taskinho.Views.Popups
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopupView : PopupPage
     {
-        public PopupView(Tarefa TarefaParam)
+        public PopupView(Func<bool> Method, Tarefa TarefaParam)
         {
-            BindingContext = new ViewModels.Popups.PopupViewModel(TarefaParam);
+            BindingContext = new ViewModels.Popups.PopupViewModel(Method, TarefaParam);
             InitializeComponent();
         }
     }

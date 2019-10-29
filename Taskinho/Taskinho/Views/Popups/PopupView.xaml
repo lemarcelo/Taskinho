@@ -29,8 +29,8 @@
         <Label HorizontalOptions="Center" Text="{Binding tarefa.TarefaTitulo}" />
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="80">
-            <Button Text="Enviar" CornerRadius="10" Command="{Binding Confirmar}"/>
-            <Button Text="Registrar" CornerRadius="10" Command="{Binding Negar}"/>
+            <Button Text="Cancelar" CornerRadius="10" Command="{Binding Cancelar}"/>
+            <Button CornerRadius="10" Command="{Binding Executar}" Text="{Binding tarefa.TarefaDetalhes}"/>
         </StackLayout>
 
 

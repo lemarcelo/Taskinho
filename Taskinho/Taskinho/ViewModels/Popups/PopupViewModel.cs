@@ -11,28 +11,17 @@ namespace Taskinho.ViewModels.Popups
 {
     public class PopupViewModel : ViewModelBase
     {
-        public PopupViewModel(Tarefa TarefaParam)
+        public PopupViewModel(Func<bool> Method, Tarefa TarefaParam)
         {
             /*Lembrete para perguntar sobre isto tarefa dentro da mainthread não funciona
              pode ter relação com o contexto da aplicação mas não sei explicar o motivo*/
             tarefa = new Tarefa();
+            method = Method;
             Device.BeginInvokeOnMainThread(() =>
             {
                 tarefa.TarefaTitulo = TarefaParam.TarefaTitulo;
             });
         }
-        //bool exclusao = false;
-        private string _jose;
-        public string jose
-        {
-            get { return _jose; }
-            set{ _jose = value;
-                NotifyPropertyChanged("jose");
-            }
-        }
-
-
-
         private Tarefa _Tarefa;
         public Tarefa tarefa
         {
@@ -41,35 +30,35 @@ namespace Taskinho.ViewModels.Popups
                 NotifyPropertyChanged("Tarefa");
             }
         }
-
-        public Command Confirmar
+        public Func<bool> method;
+        /*Lembrete para questionar sobre get; set;, pois o command não funciona sem*/
+        public Command Executar
         {
             get;
             set;
         }
-        public Command Negar
+        public Command Cancelar
         {
             get;
             set;
         }
-        //public event EventHandler ExclusaoEvent;
-
-
         private readonly Services.INavigationService navigationService;
-        private readonly Services.IMessageService messageService;
         public PopupViewModel()
         {
-            Confirmar = new Command(ExcluirAction);
-            //Negar = new Command();
+            Executar = new Command(ExecutarAction);
+            Cancelar = new Command(CancelarAction);
 
             this.navigationService = DependencyService.Get<Services.INavigationService>();
-            this.messageService = DependencyService.Get<Services.IMessageService>();
+        }
+        void ExecutarAction()
+        {
+            method.Invoke();
+        }
+        void CancelarAction()
+        {
+            navigationService.BackToPrincipal();
         }
 
-        private void ExcluirAction(object obj)
-        {
-            messageService.ShowAskAsync(tarefa);
-        }
 
     }
 }

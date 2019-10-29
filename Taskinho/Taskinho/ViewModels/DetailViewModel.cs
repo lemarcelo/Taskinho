@@ -117,11 +117,15 @@ namespace Taskinho.ViewModels
                 messageService.ShowAsync("Falha na navegação");
             }
         }
+        public bool Method()
+        {
+            return true;
+        }
         void ExcluirAction(object param)
         {
             if (ExcluirCommand != null)
             {
-                messageService.ShowAskAsync((Tarefa)param);
+                messageService.ShowAskAsync(Method,(Tarefa)param);
             }
             else
             {
