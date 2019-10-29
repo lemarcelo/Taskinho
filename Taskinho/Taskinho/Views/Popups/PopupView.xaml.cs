@@ -13,10 +13,20 @@ namespace Taskinho.Views.Popups
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopupView : PopupPage
     {
-        public PopupView(Func<bool> Method, Tarefa TarefaParam)
+        public bool verdadeiro = false;
+        public PopupView(Func<bool> metodo, Tarefa tarefa)
         {
-            BindingContext = new ViewModels.Popups.PopupViewModel(Method, TarefaParam);
+            BindingContext = new ViewModels.Popups.PopupViewModel(metodo, tarefa);
             InitializeComponent();
+            verdadeiro = metodo.Invoke();
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            if (verdadeiro)
+            {
+                App.Current.MainPage.DisplayAlert("Titulo", "Mensagem Teste", "Ok");
+            }
         }
     }
 }

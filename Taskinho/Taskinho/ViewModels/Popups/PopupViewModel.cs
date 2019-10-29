@@ -11,15 +11,18 @@ namespace Taskinho.ViewModels.Popups
 {
     public class PopupViewModel : ViewModelBase
     {
-        public PopupViewModel(Func<bool> Method, Tarefa TarefaParam)
+        public PopupViewModel(Func<bool> metodoParam, Tarefa TarefaParam)
         {
-            /*Lembrete para perguntar sobre isto tarefa dentro da mainthread não funciona
-             pode ter relação com o contexto da aplicação mas não sei explicar o motivo*/
-            tarefa = new Tarefa();
-            method = Method;
+            
+            this.tarefa = new Tarefa();
+
+            bool jose = false;
+            jose = metodoParam.Invoke();
+
+
             Device.BeginInvokeOnMainThread(() =>
             {
-                tarefa.TarefaTitulo = TarefaParam.TarefaTitulo;
+                this.tarefa.TarefaTitulo = TarefaParam.TarefaTitulo;
             });
         }
         private Tarefa _Tarefa;
@@ -37,6 +40,9 @@ namespace Taskinho.ViewModels.Popups
             get;
             set;
         }
+
+        /*Lembrete para perguntar sobre isto tarefa dentro da mainthread não funciona
+             pode ter relação com o contexto da aplicação mas não sei explicar o motivo*/
         public Command Cancelar
         {
             get;
