@@ -41,6 +41,7 @@ namespace Taskinho.ViewModels.Popups
             get;
             set;
         }
+        public string test = "Test Name";
         private readonly Services.INavigationService navigationService;
         public PopupViewModel()
         {
@@ -51,7 +52,7 @@ namespace Taskinho.ViewModels.Popups
         }
         void ExecutarAction()
         {
-            int jose = 1;
+            //do something
         }
         void CancelarAction()
         {

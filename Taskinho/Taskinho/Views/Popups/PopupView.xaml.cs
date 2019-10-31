@@ -19,7 +19,5 @@ namespace Taskinho.Views.Popups
             BindingContext = new ViewModels.Popups.PopupViewModel(metodo, tarefa);
             InitializeComponent();
         }
-
-
     }
 }

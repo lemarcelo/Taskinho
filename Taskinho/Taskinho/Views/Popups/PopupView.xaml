@@ -6,7 +6,6 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Name="PagePopup"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              x:Class="Taskinho.Views.Popups.PopupView">
     <pages:PopupPage.Animation>
@@ -27,8 +26,9 @@
              VerticalOptions="Center"
             Padding="10, 5"
             Spacing="3">
-        <Label HorizontalOptions="Center" Text="{Binding tarefa.TarefaTitulo}" />
-        <Button Text="Confirmar" Command="{Binding Path=BindingContext.ExecutarCommand,Source={x:Reference PagePopup}}" />
+        <Label HorizontalOptions="Center" Text="{Binding test}" />
+
+        <Button Text="{Binding tarefa.TarefaTitulo}" Command="{Binding ExecutarCommand}" />
 
         <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="80">
             <Button Text="Cancelar" Command="{Binding Cancelar}" />
