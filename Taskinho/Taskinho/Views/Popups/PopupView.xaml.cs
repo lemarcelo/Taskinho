@@ -18,15 +18,8 @@ namespace Taskinho.Views.Popups
         {
             BindingContext = new ViewModels.Popups.PopupViewModel(metodo, tarefa);
             InitializeComponent();
-            verdadeiro = metodo.Invoke();
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            if (verdadeiro)
-            {
-                App.Current.MainPage.DisplayAlert("Titulo", "Mensagem Teste", "Ok");
-            }
-        }
+
     }
 }

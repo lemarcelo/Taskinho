@@ -16,14 +16,7 @@ namespace Taskinho.ViewModels.Popups
             
             this.tarefa = new Tarefa();
 
-            bool jose = false;
-            jose = metodoParam.Invoke();
 
-
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                this.tarefa.TarefaTitulo = TarefaParam.TarefaTitulo;
-            });
         }
         private Tarefa _Tarefa;
         public Tarefa tarefa
@@ -35,7 +28,7 @@ namespace Taskinho.ViewModels.Popups
         }
         public Func<bool> method;
         /*Lembrete para questionar sobre get; set;, pois o command não funciona sem*/
-        public Command Executar
+        public Command ExecutarCommand
         {
             get;
             set;
@@ -43,7 +36,7 @@ namespace Taskinho.ViewModels.Popups
 
         /*Lembrete para perguntar sobre isto tarefa dentro da mainthread não funciona
              pode ter relação com o contexto da aplicação mas não sei explicar o motivo*/
-        public Command Cancelar
+        public Command CancelarCommand
         {
             get;
             set;
@@ -51,14 +44,14 @@ namespace Taskinho.ViewModels.Popups
         private readonly Services.INavigationService navigationService;
         public PopupViewModel()
         {
-            Executar = new Command(ExecutarAction);
-            Cancelar = new Command(CancelarAction);
+            ExecutarCommand = new Command(ExecutarAction);
+            CancelarCommand = new Command(CancelarAction);
 
             this.navigationService = DependencyService.Get<Services.INavigationService>();
         }
         void ExecutarAction()
         {
-            method.Invoke();
+            int jose = 1;
         }
         void CancelarAction()
         {
