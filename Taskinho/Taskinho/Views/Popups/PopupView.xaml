@@ -6,8 +6,14 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             x:Class="Taskinho.Views.Popups.PopupView">
+             xmlns:Page="clr-namespace:Taskinho.ViewModels.Popups"
+    
+             x:Class="Taskinho.Views.Popups.PopupView"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    <pages:PopupPage.BindingContext>
+        <Page:PopupViewModel />
+    </pages:PopupPage.BindingContext>
+    
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation
       PositionIn="Center"
@@ -28,7 +34,8 @@
             Spacing="3">
         <Label HorizontalOptions="Center" Text="{Binding test}" />
 
-        <Button Text="{Binding tarefa.TarefaTitulo}" Command="{Binding ExecutarCommand}" />
+
+        <Button Text="Executar da VM" Command="{Binding ExecutarCommand}" />
 
         <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="80">
             <Button Text="Cancelar" Command="{Binding Cancelar}" />

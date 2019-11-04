@@ -26,6 +26,8 @@ namespace Taskinho.ViewModels.Popups
                 NotifyPropertyChanged("Tarefa");
             }
         }
+        public string test = "Test Name";
+
         public Func<bool> method;
         /*Lembrete para questionar sobre get; set;, pois o command não funciona sem*/
         public Command ExecutarCommand
@@ -41,7 +43,6 @@ namespace Taskinho.ViewModels.Popups
             get;
             set;
         }
-        public string test = "Test Name";
         private readonly Services.INavigationService navigationService;
         public PopupViewModel()
         {
@@ -52,7 +53,7 @@ namespace Taskinho.ViewModels.Popups
         }
         void ExecutarAction()
         {
-            //do something
+            Console.WriteLine("Executou");
         }
         void CancelarAction()
         {
