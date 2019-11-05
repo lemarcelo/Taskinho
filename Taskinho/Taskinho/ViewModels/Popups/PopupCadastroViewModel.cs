@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
-using Taskinho.ViewModels;
 using Xamarin.Forms;
 using Taskinho.DB;
 using Taskinho.Model;
-using Taskinho.Services;
-using System.Threading.Tasks;
 
-namespace Taskinho.ViewModels
+namespace Taskinho.ViewModels.Popups
 {
-    public class CadastroTarefaViewModel : ViewModelBase
+    public class PopupCadastroViewModel : ViewModelBase
     {
         #region Props
+        Func<bool> MetodoParam;
         Tarefa tarefa = new Tarefa();
+
         private string _Titulo;
         public string Titulo
         {
@@ -59,7 +58,6 @@ namespace Taskinho.ViewModels
             }
         }
 
-
         private string _Status;
         public string Status
         {
@@ -84,7 +82,22 @@ namespace Taskinho.ViewModels
             set;
         }
 
-        private void Adicionar(object obj)
+        private readonly Services.IMessageService messageService;
+        private readonly Services.INavigationService navigationService;
+        
+        public PopupCadastroViewModel(Func<bool> metodo, Tarefa tarefa = null)
+        {
+            MetodoParam = metodo;
+            this.tarefa = tarefa;
+            Prazo = DateTime.Now;
+            CancelarCommand = new Command(CancelarAction);
+            SalvarCommand = new Command(SalvarAction);
+
+            this.messageService = DependencyService.Get<Services.IMessageService>();
+            this.navigationService = DependencyService.Get<Services.INavigationService>();
+
+        }
+        private void SalvarAction(object obj)
         {
             tarefa.IdGrupo = 0;
             tarefa.TarefaTitulo = Titulo;
@@ -95,46 +108,31 @@ namespace Taskinho.ViewModels
             LocalDB _connection = new LocalDB();
             _connection.InsertT(tarefa);
             SendAddMsg();
-            navigationService.BackToPrincipal();
+            navigationService.BackPopUp();
         }
 
-        private void Cancelar()
+        private void CancelarAction()
         {
             if (CancelarCommand != null)
             {
-                navigationService.BackToPrincipal();
+                navigationService.BackPopUp();
             }
         }
-        
+
         void SendAddMsg()
         {
             var detailViewModel = new DetailViewModel();
             MessagingCenter.Send(detailViewModel, "AddMsg");
         }
 
-        public void ReqEditSub()
+        public void SubscribeEditMsg()
         {
-            MessagingCenter.Subscribe<CadastroTarefaViewModel, Tarefa>(this, "EditReqMsg", (sender, args) =>
+            MessagingCenter.Subscribe<PopupCadastroViewModel, Tarefa>(this, "EditReqMsg", (sender, args) =>
             {
                 Titulo = args.TarefaTitulo;
                 Detalhes = args.TarefaDetalhes;
                 Prazo = args.TarefaPrazo;
             });
-        }
-
-
-        private readonly Services.IMessageService messageService;
-        private readonly Services.INavigationService navigationService;
-
-        public CadastroTarefaViewModel()
-        {
-            Prazo = DateTime.Now;
-            CancelarCommand = new Command(Cancelar);
-            SalvarCommand = new Command(Adicionar);
-
-            this.messageService = DependencyService.Get<Services.IMessageService>();
-            this.navigationService = DependencyService.Get<Services.INavigationService>();
-
         }
 
         //TODO - OCULTAR DATA QUANDO NÃO INFORMADA

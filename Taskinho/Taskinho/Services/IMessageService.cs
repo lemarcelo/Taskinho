@@ -9,7 +9,7 @@ namespace Taskinho.Services
     public interface IMessageService
     {
         Task ShowAsync(string message);
-        Task ShowAskAsync(Func<bool> method, Tarefa tarefa);
+        Task ShowAskAsync(Func<bool> method, string tarefa);
         Task ShowPage(Tarefa tarefa);
     }
 }

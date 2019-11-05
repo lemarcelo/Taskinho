@@ -24,7 +24,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <CheckBox Color="#2196F3" Grid.RowSpan="3" />
-                        <Label Grid.Column="1"
+                        <Label Grid.ColumnSpan="4"
                            Text="{Binding TarefaTitulo}"
                            FontAttributes="Bold" 
                                FontSize="Body"/>

@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Taskinho.Model;
+using Rg.Plugins.Popup.Services;
 
 namespace Taskinho.Views.Services
 {
@@ -32,7 +33,9 @@ namespace Taskinho.Views.Services
         }
         public async Task NavigationToCadastro()
         {
-            await App.MasterDetail.Detail.Navigation.PushModalAsync(new CadastroTarefaView());
+            var page = new Popups.PopupCadastroView();
+            await PopupNavigation.Instance.PushAsync(page);
+            //await App.MasterDetail.Detail.Navigation.PushModalAsync(new CadastroTarefaView());
         }
 
         public async Task NavigationToPrincipal()
@@ -44,5 +47,15 @@ namespace Taskinho.Views.Services
             await App.MasterDetail.Detail.Navigation.PopModalAsync();
         }
 
+        public async Task BackPopUp()
+        {
+            await PopupNavigation.Instance.PopAsync();
+        }
+
+        public async Task NavigationToCadastro(Func<bool> metodo = null, Tarefa tarefa = null)
+        {
+            var page = new Popups.PopupCadastroView(metodo, tarefa);
+            await PopupNavigation.Instance.PushAsync(page);
+        }
     }
 }

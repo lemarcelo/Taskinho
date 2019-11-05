@@ -1,22 +1,22 @@
-﻿using Rg.Plugins.Popup.Pages;
-using System;
+﻿using System;
+using Rg.Plugins.Popup.Pages;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Taskinho.Model;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Taskinho.Model;
 
 namespace Taskinho.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PopupView : PopupPage
+    public partial class PopupCadastroView : PopupPage
     {
-        public bool verdadeiro = false;
-        public PopupView(Func<bool> metodo, string paramMsg)
+        public PopupCadastroView(Func<bool> metodo= null, Tarefa tarefa= null)
         {
-            BindingContext = new ViewModels.Popups.PopupViewModel(metodo, paramMsg);
+            BindingContext = new ViewModels.Popups.PopupCadastroViewModel(metodo, tarefa);
             InitializeComponent();
         }
     }

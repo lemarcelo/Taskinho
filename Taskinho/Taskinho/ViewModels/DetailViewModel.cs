@@ -4,7 +4,7 @@ using System.Text;
 using System.Windows.Input;
 using Taskinho.Model;
 using Taskinho.DB;
-using Taskinho.ViewModels;
+using Taskinho.ViewModels.Popups;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,18 +15,6 @@ namespace Taskinho.ViewModels
 {
     public class DetailViewModel : ViewModelBase
     {
-        CadastroTarefaViewModel cadastroVm;
-        CadastroTarefaViewModel CadastrarVm()
-        {
-            if (cadastroVm == null)
-            {
-                cadastroVm = new CadastroTarefaViewModel();
-                return cadastroVm;
-            }
-            else return cadastroVm;
-        }
-
-
         Tarefa tarefa;
         LocalDB connection;
 
@@ -38,15 +26,6 @@ namespace Taskinho.ViewModels
             {
                 _Tarefas = value;
                 NotifyPropertyChanged("Tarefas");
-            }
-        }
-        private List<Tarefa> _TarefasRetorno;
-        public List<Tarefa> TarefasRetorno
-        {
-            get { return _TarefasRetorno; }
-            set
-            {
-                _TarefasRetorno = value;
             }
         }
         public Command AdicionarCommand
@@ -62,6 +41,23 @@ namespace Taskinho.ViewModels
             get;set;
         }
 
+        PopupCadastroViewModel PopupCadastroVm;
+        PopupCadastroViewModel GetPopupCadastroVm()
+        {
+            if (PopupCadastroVm == null)
+            {
+                PopupCadastroVm = new PopupCadastroViewModel(MetodoUpdate, tarefa);
+                return PopupCadastroVm;
+            }
+            else return PopupCadastroVm;
+        }
+
+        private bool MetodoUpdate()
+        {
+                connection.UpdateT(tarefa);
+                Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
+                return true;
+        }
 
         private readonly Services.IMessageService messageService;
         private readonly Services.INavigationService navigationService;
@@ -77,7 +73,7 @@ namespace Taskinho.ViewModels
             this.navigationService = DependencyService.Get<Services.INavigationService>();
         }
 
-        void RegAddMsg()
+        void SubscribeAdd()
         {
             MessagingCenter.Subscribe<DetailViewModel>(this, "AddMsg", (sender) =>
             {
@@ -87,8 +83,8 @@ namespace Taskinho.ViewModels
         }
         void EditReq(Tarefa ClickedTask)
         {
-            cadastroVm.ReqEditSub();
-            MessagingCenter.Send<CadastroTarefaViewModel, Tarefa>(CadastrarVm(), "EditReqMsg", ClickedTask);
+            PopupCadastroVm.SubscribeEditMsg();
+            MessagingCenter.Send<PopupCadastroViewModel, Tarefa>(GetPopupCadastroVm(), "EditReqMsg", ClickedTask);
 
         }
 
@@ -96,7 +92,7 @@ namespace Taskinho.ViewModels
         {
             if (AdicionarCommand != null)
             {
-                RegAddMsg();
+                SubscribeAdd();
                 navigationService.NavigationToCadastro();
             }
             else
@@ -108,7 +104,8 @@ namespace Taskinho.ViewModels
         {
             if (EditarCommand != null)
             {
-                EditReq((Tarefa)param);
+                //EditReq((Tarefa)param);
+
                 navigationService.NavigationToCadastro();
                 
             }
@@ -117,17 +114,20 @@ namespace Taskinho.ViewModels
                 messageService.ShowAsync("Falha na navegação");
             }
         }
-        public bool Method()
+        public bool MetodoExcluir()
         {
-            var jose = tarefa;
             connection.DeleteT(tarefa);
+            Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
+
             return true;
         }
         void ExcluirAction(object param)
         {
             if (ExcluirCommand != null)
             {
-                messageService.ShowAskAsync(Method,(Tarefa)param);
+                tarefa = (Tarefa)param;
+                string msgParam = string.Format("Deseja excluir a tarefa \n \n{0}", tarefa.TarefaTitulo);
+                messageService.ShowAskAsync(MetodoExcluir, msgParam);
             }
             else
             {
@@ -138,9 +138,6 @@ namespace Taskinho.ViewModels
             //tarefa = (Tarefa)param;
             //Tarefas.Remove(tarefa);
             //connection.DeleteT(tarefa);
-        }
-
-
-
+        } 
     }
 }

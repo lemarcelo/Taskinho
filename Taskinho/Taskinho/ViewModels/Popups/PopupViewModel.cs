@@ -13,16 +13,19 @@ namespace Taskinho.ViewModels.Popups
     {
         public Func<bool> metodo;
 
-        private Tarefa _Tarefa;
-        public Tarefa tarefa
+        
+        private string _msgParam;
+        public string msgParam
         {
-            get { return _Tarefa; }
-            set { _Tarefa = value;
-                NotifyPropertyChanged("Tarefa");
+            get { return _msgParam; }
+            set
+            {
+                _msgParam = value;
+                NotifyPropertyChanged("Tarefas");
             }
         }
 
-        public Func<bool> method;
+
         /*Lembrete para questionar sobre get; set;, pois o command não funciona sem*/
         public Command ExecutarCommand
         {
@@ -38,10 +41,9 @@ namespace Taskinho.ViewModels.Popups
             set;
         }
         private readonly Services.INavigationService navigationService;
-        public PopupViewModel(Func<bool> metodoParam, Tarefa TarefaParam)
+        public PopupViewModel(Func<bool> metodoParam, string paramMsg)
         {
-            tarefa = new Tarefa();
-            tarefa = TarefaParam;
+            msgParam = paramMsg;
             metodo = metodoParam;
             ExecutarCommand = new Command(ExecutarAction);
             CancelarCommand = new Command(CancelarAction);
@@ -51,10 +53,11 @@ namespace Taskinho.ViewModels.Popups
         void ExecutarAction()
         {
             metodo.Invoke();
+            navigationService.BackPopUp();
         }
         void CancelarAction()
         {
-            navigationService.BackToPrincipal();
+            navigationService.BackPopUp();
         }
 
 

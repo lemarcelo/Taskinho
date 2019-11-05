@@ -18,9 +18,9 @@ namespace Taskinho.Views.Services
             //await PopupNavigation.Instance.PushAsync(page);
         }
 
-        public async Task ShowAskAsync(Func<bool> metodo, Tarefa tarefa)
+        public async Task ShowAskAsync(Func<bool> metodo, string tarefaMsg)
         {
-            var page = new Popups.PopupView(metodo, tarefa);
+            var page = new Popups.PopupView(metodo, tarefaMsg);
             await PopupNavigation.Instance.PushAsync(page);
         }
 
