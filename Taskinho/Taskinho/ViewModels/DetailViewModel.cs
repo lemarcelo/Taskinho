@@ -119,6 +119,8 @@ namespace Taskinho.ViewModels
         }
         public bool Method()
         {
+            var jose = tarefa;
+            connection.DeleteT(tarefa);
             return true;
         }
         void ExcluirAction(object param)

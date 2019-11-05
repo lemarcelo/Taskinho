@@ -50,7 +50,7 @@ namespace Taskinho.ViewModels.Popups
         }
         void ExecutarAction()
         {
-            Console.WriteLine("Executou");
+            metodo.Invoke();
         }
         void CancelarAction()
         {
