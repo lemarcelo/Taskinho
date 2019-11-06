@@ -31,13 +31,13 @@
         <StackLayout BackgroundColor="White">
             <Label Margin="0,20,0,0" Text="Pagina Cadastro" FontSize="Large" HorizontalOptions="Center" />
 
-            <Entry Placeholder="Titulo" Text="{Binding Titulo }" />
-            <Editor Text="{Binding Detalhes }" HeightRequest="60" WidthRequest="150" Placeholder="Detalhes" Keyboard="Text" />
+            <Entry Placeholder="Titulo" Text="{Binding tarefa.TarefaTitulo }" />
+            <Editor Text="{Binding tarefa.TarefaDetalhes }" HeightRequest="60" WidthRequest="150" Placeholder="Detalhes" Keyboard="Text" />
 
             <Label Text="Prazo" HorizontalOptions="Center" />
 
-            <DatePicker Date="{Binding Prazo.Date}" TextColor="Black" HorizontalOptions="Center"/>
-            <TimePicker Time="{Binding Prazo.TimeOfDay}" TextColor="Black" HorizontalOptions="Center"/>
+            <DatePicker Date="{Binding tarefa.TarefaPrazo.Date}" TextColor="Black" HorizontalOptions="Center"/>
+            <TimePicker Time="{Binding tarefa.TarefaPrazo.TimeOfDay}" TextColor="Black" HorizontalOptions="Center"/>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="50">
                 <Button Text="Cancelar" CornerRadius="10" Command="{Binding CancelarCommand}" />

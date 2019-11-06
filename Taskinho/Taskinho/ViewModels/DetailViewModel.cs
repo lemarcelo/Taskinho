@@ -104,10 +104,8 @@ namespace Taskinho.ViewModels
         {
             if (EditarCommand != null)
             {
-                //EditReq((Tarefa)param);
-
-                navigationService.NavigationToCadastro();
-                
+                Tarefa TarefaParam = (Tarefa)param;
+                navigationService.NavigationToCadastro(MetodoUpdate, TarefaParam);
             }
             else
             {

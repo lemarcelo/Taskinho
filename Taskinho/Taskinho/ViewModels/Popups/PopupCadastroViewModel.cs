@@ -12,62 +12,18 @@ namespace Taskinho.ViewModels.Popups
     {
         #region Props
         Func<bool> MetodoParam;
-        Tarefa tarefa = new Tarefa();
 
-        private string _Titulo;
-        public string Titulo
+        private Tarefa _Tarefa;
+        public Tarefa tarefa
         {
-            get { return _Titulo; }
+            get { return _Tarefa; }
             set
             {
-                _Titulo = value;
-                NotifyPropertyChanged("Titulo");
+                _Tarefa = value;
+                NotifyPropertyChanged("Tarefas");
             }
         }
 
-        private string _Detalhes;
-        public string Detalhes
-        {
-            get { return _Detalhes; }
-            set
-            {
-                _Detalhes = value;
-                NotifyPropertyChanged("Detalhes");
-            }
-        }
-
-        private int _Gid;
-        public int Gid
-        {
-            get { return _Gid; }
-            set
-            {
-                _Gid = value;
-                NotifyPropertyChanged("Gid");
-            }
-        }
-
-        private DateTime _Prazo;
-        public DateTime Prazo
-        {
-            get { return _Prazo; }
-            set
-            {
-                _Prazo = value;
-                NotifyPropertyChanged("Prazo");
-            }
-        }
-
-        private string _Status;
-        public string Status
-        {
-            get { return _Status; }
-            set
-            {
-                _Status = value;
-                NotifyPropertyChanged("Status");
-            }
-        }
 
         #endregion
 
@@ -89,7 +45,7 @@ namespace Taskinho.ViewModels.Popups
         {
             MetodoParam = metodo;
             this.tarefa = tarefa;
-            Prazo = DateTime.Now;
+            tarefa.TarefaPrazo = DateTime.Now;
             CancelarCommand = new Command(CancelarAction);
             SalvarCommand = new Command(SalvarAction);
 
@@ -97,13 +53,14 @@ namespace Taskinho.ViewModels.Popups
             this.navigationService = DependencyService.Get<Services.INavigationService>();
 
         }
+        //TODO - SALVAR TAREFA EDITADA NÃO TAREFA CLICADA
         private void SalvarAction(object obj)
         {
+            if (MetodoParam!= null)
+            {
+                MetodoParam.Invoke();
+            }
             tarefa.IdGrupo = 0;
-            tarefa.TarefaTitulo = Titulo;
-            tarefa.TarefaDetalhes = Detalhes;
-            tarefa.TarefaPrazo = Prazo;
-            tarefa.IdGrupo = Gid;
             tarefa.TarefaStatus = "p";
             LocalDB _connection = new LocalDB();
             _connection.InsertT(tarefa);
@@ -129,9 +86,9 @@ namespace Taskinho.ViewModels.Popups
         {
             MessagingCenter.Subscribe<PopupCadastroViewModel, Tarefa>(this, "EditReqMsg", (sender, args) =>
             {
-                Titulo = args.TarefaTitulo;
-                Detalhes = args.TarefaDetalhes;
-                Prazo = args.TarefaPrazo;
+                //Titulo = args.TarefaTitulo;
+                //Detalhes = args.TarefaDetalhes;
+                //Prazo = args.TarefaPrazo;
             });
         }
 
