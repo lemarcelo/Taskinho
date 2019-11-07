@@ -20,6 +20,7 @@
             EasingOut="SpringOut"/>
     </PluginPages:PopupPage.Animation>
     <Frame
+        Margin="10,0,10,0"
         CornerRadius="5"
         BackgroundColor="White"
         IsClippedToBounds="True"
@@ -29,17 +30,17 @@
         BorderColor="#2196F3">
 
         <StackLayout BackgroundColor="White">
-            <Label Margin="0,20,0,0" Text="Pagina Cadastro" FontSize="Large" HorizontalOptions="Center" />
+            <Label Margin="0,20,0,0" Text="{Binding TituloPagina}" FontSize="Large" HorizontalOptions="Center" />
 
-            <Entry Placeholder="Titulo" Text="{Binding tarefa.TarefaTitulo }" />
-            <Editor Text="{Binding tarefa.TarefaDetalhes }" HeightRequest="60" WidthRequest="150" Placeholder="Detalhes" Keyboard="Text" />
+            <Entry Placeholder="Titulo" Text="{Binding Titulo, Mode=TwoWay }" />
+            <Editor Text="{Binding Detalhes, Mode=TwoWay }" HeightRequest="60" WidthRequest="150" Placeholder="Detalhes" Keyboard="Text" />
 
             <Label Text="Prazo" HorizontalOptions="Center" />
 
-            <DatePicker Date="{Binding tarefa.TarefaPrazo.Date}" TextColor="Black" HorizontalOptions="Center"/>
-            <TimePicker Time="{Binding tarefa.TarefaPrazo.TimeOfDay}" TextColor="Black" HorizontalOptions="Center"/>
+            <DatePicker Date="{Binding tarefa.TarefaPrazo.Date, Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center"/>
+            <TimePicker Time="{Binding tarefa.TarefaPrazo.TimeOfDay, Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center"/>
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="50">
+            <StackLayout Margin="0,0,0,15" Orientation="Horizontal" HorizontalOptions="Center" Spacing="50">
                 <Button Text="Cancelar" CornerRadius="10" Command="{Binding CancelarCommand}" />
                 <Button Text="Salvar" CornerRadius="10"  Command="{Binding SalvarCommand}"/>
             </StackLayout>

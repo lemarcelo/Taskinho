@@ -52,9 +52,9 @@ namespace Taskinho.Views.Services
             await PopupNavigation.Instance.PopAsync();
         }
 
-        public async Task NavigationToCadastro(Func<bool> metodo = null, Tarefa tarefa = null)
+        public async Task NavigationToCadastro(Tarefa tarefa = null)
         {
-            var page = new Popups.PopupCadastroView(metodo, tarefa);
+            var page = new Popups.PopupCadastroView(tarefa);
             await PopupNavigation.Instance.PushAsync(page);
         }
     }

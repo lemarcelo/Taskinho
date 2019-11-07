@@ -28,9 +28,9 @@
         VerticalOptions="Center"
         Padding="10, 5"
         BorderColor="#2196F3">
-        <StackLayout>
-            <Label FontSize="Large" HorizontalOptions="Center" Text="{Binding msgParam}" Margin="0,60,0,20"/>
-            <StackLayout Spacing="80" Orientation="Horizontal" Margin="10,0,10,10">
+        <StackLayout HorizontalOptions="Center" Margin="10,0,10,0">
+            <Label MaxLines="3" FontSize="Large" HorizontalOptions="Center" Text="{Binding msgParam}" Margin="0,60,0,20" />
+            <StackLayout Spacing="80" Orientation="Horizontal" Margin="10,0,10,10" HorizontalOptions="Center">
                 <Button Text="Não" Command="{Binding CancelarCommand}" />
                 <Button Text="Sim" Command="{Binding ExecutarCommand}" />
             </StackLayout>

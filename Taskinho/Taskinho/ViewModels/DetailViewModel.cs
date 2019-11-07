@@ -46,17 +46,10 @@ namespace Taskinho.ViewModels
         {
             if (PopupCadastroVm == null)
             {
-                PopupCadastroVm = new PopupCadastroViewModel(MetodoUpdate, tarefa);
+                PopupCadastroVm = new PopupCadastroViewModel(tarefa);
                 return PopupCadastroVm;
             }
             else return PopupCadastroVm;
-        }
-
-        private bool MetodoUpdate()
-        {
-                connection.UpdateT(tarefa);
-                Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
-                return true;
         }
 
         private readonly Services.IMessageService messageService;
@@ -81,19 +74,23 @@ namespace Taskinho.ViewModels
                 MessagingCenter.Unsubscribe<DetailViewModel>(this, "AddMsg");
             });
         }
-        void EditReq(Tarefa ClickedTask)
-        {
-            PopupCadastroVm.SubscribeEditMsg();
-            MessagingCenter.Send<PopupCadastroViewModel, Tarefa>(GetPopupCadastroVm(), "EditReqMsg", ClickedTask);
 
+        void SubscribeUpdate()
+        {
+            MessagingCenter.Subscribe<DetailViewModel, Tarefa>(this, "EditMsg", (sender, args)=>
+                {
+                    Tarefas = new ObservableCollection<Tarefa>(connection.GetT() as List<Tarefa>);
+                    MessagingCenter.Unsubscribe<DetailViewModel, Tarefa>(this, "EditMsg");
+                }
+            );
         }
 
         void AdicionarAction()
         {
             if (AdicionarCommand != null)
             {
-                SubscribeAdd();
-                navigationService.NavigationToCadastro();
+                tarefa = null;
+                navigationService.NavigationToCadastro(tarefa);
             }
             else
             {
@@ -104,8 +101,9 @@ namespace Taskinho.ViewModels
         {
             if (EditarCommand != null)
             {
+                SubscribeUpdate();
                 Tarefa TarefaParam = (Tarefa)param;
-                navigationService.NavigationToCadastro(MetodoUpdate, TarefaParam);
+                navigationService.NavigationToCadastro(TarefaParam);
             }
             else
             {

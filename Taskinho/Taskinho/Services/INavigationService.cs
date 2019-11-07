@@ -8,7 +8,7 @@ namespace Taskinho.Services
 {
     public interface INavigationService
     {
-        Task NavigationToCadastro(Func<bool> metodo= null, Tarefa tarefa= null);
+        Task NavigationToCadastro(Tarefa tarefa= null);
         Task NavigationToPrincipal();
         Task BackToPrincipal();
         Task BackPopUp();

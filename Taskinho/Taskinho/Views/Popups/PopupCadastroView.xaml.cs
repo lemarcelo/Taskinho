@@ -14,9 +14,9 @@ namespace Taskinho.Views.Popups
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopupCadastroView : PopupPage
     {
-        public PopupCadastroView(Func<bool> metodo= null, Tarefa tarefa= null)
+        public PopupCadastroView(Tarefa tarefa= null)
         {
-            BindingContext = new ViewModels.Popups.PopupCadastroViewModel(metodo, tarefa);
+            BindingContext = new ViewModels.Popups.PopupCadastroViewModel(tarefa);
             InitializeComponent();
         }
     }
