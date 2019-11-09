@@ -121,8 +121,13 @@ namespace Taskinho.ViewModels
         {
             if (EditarCommand != null)
             {
+                Tarefa tarefinha = new Tarefa();
+                tarefinha = (Tarefa)param;
                 SubscribeUpdate();
-                navigationService.NavigationToCadastro((Tarefa)param);
+                LocalDB _connection = new LocalDB();
+                Tarefa tarefaParam = _connection.GetById((int)tarefinha.IdTarefa);
+
+                navigationService.NavigationToCadastro(tarefaParam);
             }
             else
             {

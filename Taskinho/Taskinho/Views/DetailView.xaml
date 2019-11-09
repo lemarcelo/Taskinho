@@ -80,7 +80,7 @@
 
                         <Label Grid.Row="1" Grid.Column="2" Text="Editar" VerticalOptions="End" >
                             <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
                             </Label.GestureRecognizers>
                         </Label>
 
@@ -103,7 +103,6 @@
                 />
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <ContentPage.Content>
         <StackLayout>
             <Frame CornerRadius="10" BackgroundColor="#2196F3" Margin="10">

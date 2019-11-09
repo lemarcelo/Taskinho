@@ -9,7 +9,7 @@ namespace Taskinho.Model
     public class Tarefa
     {
         [PrimaryKey, AutoIncrement]
-        public long IdTarefa { get; set; }
+        public int IdTarefa { get; set; }
         public int IdGrupo { get; set; }
 
         //public enum TarefaStatus { a,b,c,d,e}

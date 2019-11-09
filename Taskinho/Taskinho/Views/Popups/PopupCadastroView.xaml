@@ -32,7 +32,7 @@
         <StackLayout BackgroundColor="White">
             <Label Margin="0,20,0,0" Text="{Binding TituloPagina}" FontSize="Large" HorizontalOptions="Center" />
 
-            <Entry Placeholder="Titulo" Text="{Binding TarefaTitulo, Mode=TwoWay }" />
+            <Entry x:Name="EntryFocused" Placeholder="Titulo" Text="{Binding TarefaTitulo, Mode=TwoWay }" />
             <Editor Text="{Binding TarefaDetalhes, Mode=TwoWay }" HeightRequest="60" WidthRequest="150" Placeholder="Detalhes" Keyboard="Text" />
 
             <Label Text="Prazo" HorizontalOptions="Center" />

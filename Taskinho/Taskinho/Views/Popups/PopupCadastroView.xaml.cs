@@ -19,5 +19,11 @@ namespace Taskinho.Views.Popups
             BindingContext = new ViewModels.Popups.PopupCadastroViewModel(tarefa);
             InitializeComponent();
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            EntryFocused.Focus();
+        }
     }
 }

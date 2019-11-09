@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Taskinho.DB;
 using Taskinho.Model;
+using System.Threading.Tasks;
 
 namespace Taskinho.ViewModels.Popups
 {
@@ -110,7 +111,9 @@ namespace Taskinho.ViewModels.Popups
         {
             this.tarefa = new Tarefa();
             this.tarefa = tarefa;
-            EditorAdd(tarefa);
+
+
+            EditorAdd(this.tarefa);
             CancelarCommand = new Command(CancelarAction);
             SalvarCommand = new Command(SalvarAction);
 
@@ -157,10 +160,13 @@ namespace Taskinho.ViewModels.Popups
         }
         private void CancelarAction()
         {
-            if (CancelarCommand != null)
-            {
-                navigationService.BackPopUp();
-            }
+
+            var detailViewModel = new DetailViewModel();
+            MessagingCenter.Unsubscribe<DetailViewModel, Tarefa>(detailViewModel, "EditMsg");
+            MessagingCenter.Unsubscribe<DetailViewModel>(detailViewModel, "AddMsg");
+
+            navigationService.BackPopUp();
+
         }
         void SendAdd()
         {
@@ -172,11 +178,7 @@ namespace Taskinho.ViewModels.Popups
             var detailViewModel = new DetailViewModel();
             MessagingCenter.Send(detailViewModel, "EditMsg", tarefa);
         }
-        //TODO - OCULTAR DATA QUANDO NÃO INFORMADA
-        //TODO - POSSIBILIDADE DE ALTERAR TAREFA
         //TODO - POSSIBILIDADE DE DESFAZER REALIZAÇÃO
-        //TODO - PAREI NA NAVEGAÇÃO DE TELA TESTE DA TELA CADASTO PARA A PRINCIPAL POR VOLTA DE 20 MIN
-        //TODO - https://www.youtube.com/watch?v=Yr7pGCsGmQ0&t=486s
         //TODO - Reagendar Tarefa
     }
 }
