@@ -29,7 +29,7 @@ namespace Taskinho.ViewModels
             }
         }
         private string _SelectedDetalhes;
-        public string SelectedDetalhes
+        public string DetalhesFrame
         {
             get { return _SelectedDetalhes; }
             set
@@ -46,11 +46,16 @@ namespace Taskinho.ViewModels
         {
             get;set;
         }
+        public Command EditarCommand
+        {
+            get; set;
+
+        }
         public Command ExcluirCommand
         {
             get;set;
         }
-        public Command EditarCommand
+        public Command StatusCommand
         {
             get;set;
         }
@@ -77,13 +82,24 @@ namespace Taskinho.ViewModels
             AdicionarCommand = new Command(AdicionarAction);
             EditarCommand = new Command(EditarAction);
             ExcluirCommand = new Command(ExcluirAction);
+            StatusCommand = new Command(StatusAction);
             this.messageService = DependencyService.Get<Services.IMessageService>();
             this.navigationService = DependencyService.Get<Services.INavigationService>();
         }
+
+        private void StatusAction(object obj)
+        {
+
+            //if ()
+            //{
+
+            //}
+        }
+
         private void FrameAction(object obj)
         {
-            var str = (Tarefa)obj;
-            SelectedDetalhes = str.TarefaDetalhes;
+            var DetalhesClicado = (Tarefa)obj;
+            DetalhesFrame = DetalhesClicado.TarefaDetalhes;
         }
         void SubscribeAdd()
         {
