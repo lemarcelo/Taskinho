@@ -12,6 +12,9 @@
             <DataTemplate x:Key="TarefaPendente">
                 <ViewCell>
                     <Grid Padding="10">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Path=BindingContext.FrameCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
+                        </Grid.GestureRecognizers>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
@@ -31,9 +34,10 @@
 
                         <Label Grid.Row="1" Grid.Column="2" Text="Editar" VerticalOptions="End" >
                             <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}"/>
                             </Label.GestureRecognizers>
                         </Label>
+                        <!--<BoxView Grid.Row="1" Grid.Column="2" VerticalOptions="End" BackgroundColor="Transparent"/>-->
 
                         <Label Grid.Row="1" Grid.Column="3" Text="Excluir" VerticalOptions="End" >
                             <Label.GestureRecognizers>
@@ -43,7 +47,11 @@
 
                         <Label Grid.Row="2"
                            Grid.Column="1"
-                           Text="{Binding TarefaPrazo}"
+                           Text="{Binding TarefaPrazoDate.Date, StringFormat='{0:dd/MM/yyyy}'}"
+                           VerticalOptions="End" />
+                        <Label Grid.Row="2"
+                           Grid.Column="2"
+                           Text="{Binding TarefaPrazoHour, StringFormat='{}{0:hh\\:mm}'}"
                            VerticalOptions="End" />
                     </Grid>
                 </ViewCell>
@@ -100,9 +108,14 @@
         <StackLayout>
             <Frame CornerRadius="10" BackgroundColor="#2196F3" Margin="10">
                 <StackLayout BackgroundColor="#2196F3" HeightRequest="150">
-                    <Label Text="{Binding TarefaTitulo}" FontAttributes="Bold" FontFamily="Times" FontSize="24" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="#87CEEB" />
-                    <Label x:Name="DataHoje" FontSize="16" HorizontalOptions="Center" TextColor="#E0FFFF"/>
-
+                    <!--<Label Text="{Binding TarefaTitulo}" FontAttributes="Bold" FontFamily="Times" FontSize="24" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="#87CEEB" />-->
+                    <!--<Label x:Name="DataHoje" FontSize="16" HorizontalOptions="Center" TextColor="#E0FFFF"/>-->
+                    <StackLayout>
+                        <ScrollView>
+                            <Label FontSize="Large" FontAttributes="Bold" Text="{Binding SelectedDetalhes}"/>
+                        </ScrollView>
+                    </StackLayout>
+                    
                     <ImageButton Source="plus.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Command="{Binding AdicionarCommand}">
                         <ImageButton.Margin>
                             <OnPlatform x:TypeArguments="Thickness">

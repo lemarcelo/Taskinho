@@ -32,17 +32,17 @@
         <StackLayout BackgroundColor="White">
             <Label Margin="0,20,0,0" Text="{Binding TituloPagina}" FontSize="Large" HorizontalOptions="Center" />
 
-            <Entry Placeholder="Titulo" Text="{Binding Titulo, Mode=TwoWay }" />
-            <Editor Text="{Binding Detalhes, Mode=TwoWay }" HeightRequest="60" WidthRequest="150" Placeholder="Detalhes" Keyboard="Text" />
+            <Entry Placeholder="Titulo" Text="{Binding TarefaTitulo, Mode=TwoWay }" />
+            <Editor Text="{Binding TarefaDetalhes, Mode=TwoWay }" HeightRequest="60" WidthRequest="150" Placeholder="Detalhes" Keyboard="Text" />
 
             <Label Text="Prazo" HorizontalOptions="Center" />
 
-            <DatePicker Date="{Binding tarefa.TarefaPrazo.Date, Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center"/>
-            <TimePicker Time="{Binding tarefa.TarefaPrazo.TimeOfDay, Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center"/>
+            <DatePicker Date="{Binding PrazoDate, Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center" />
+            <TimePicker Time="{Binding PrazoHour, Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center" />
 
-            <StackLayout Margin="0,0,0,15" Orientation="Horizontal" HorizontalOptions="Center" Spacing="50">
+            <StackLayout Margin="0,0,0,15" Orientation="Horizontal" HorizontalOptions="Center" Spacing="50" >
                 <Button Text="Cancelar" CornerRadius="10" Command="{Binding CancelarCommand}" />
-                <Button Text="Salvar" CornerRadius="10"  Command="{Binding SalvarCommand}"/>
+                <Button Text="Salvar" CornerRadius="10"  Command="{Binding SalvarCommand}" />
             </StackLayout>
         </StackLayout>
     </Frame>

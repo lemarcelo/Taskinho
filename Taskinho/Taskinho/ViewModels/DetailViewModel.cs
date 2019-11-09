@@ -28,7 +28,21 @@ namespace Taskinho.ViewModels
                 NotifyPropertyChanged("Tarefas");
             }
         }
+        private string _SelectedDetalhes;
+        public string SelectedDetalhes
+        {
+            get { return _SelectedDetalhes; }
+            set
+            {
+                _SelectedDetalhes = value;
+                NotifyPropertyChanged("SelectedDetalhes");
+            }
+        }
         public Command AdicionarCommand
+        {
+            get;set;
+        }
+        public Command FrameCommand
         {
             get;set;
         }
@@ -59,13 +73,18 @@ namespace Taskinho.ViewModels
             tarefa = new Tarefa();
             connection = new LocalDB();
             Tarefas = new ObservableCollection<Tarefa>(connection.GetT());
+            FrameCommand = new Command(FrameAction);
             AdicionarCommand = new Command(AdicionarAction);
             EditarCommand = new Command(EditarAction);
             ExcluirCommand = new Command(ExcluirAction);
             this.messageService = DependencyService.Get<Services.IMessageService>();
             this.navigationService = DependencyService.Get<Services.INavigationService>();
         }
-
+        private void FrameAction(object obj)
+        {
+            var str = (Tarefa)obj;
+            SelectedDetalhes = str.TarefaDetalhes;
+        }
         void SubscribeAdd()
         {
             MessagingCenter.Subscribe<DetailViewModel>(this, "AddMsg", (sender) =>
@@ -89,6 +108,7 @@ namespace Taskinho.ViewModels
         {
             if (AdicionarCommand != null)
             {
+                SubscribeAdd();
                 tarefa = null;
                 navigationService.NavigationToCadastro(tarefa);
             }
@@ -102,8 +122,7 @@ namespace Taskinho.ViewModels
             if (EditarCommand != null)
             {
                 SubscribeUpdate();
-                Tarefa TarefaParam = (Tarefa)param;
-                navigationService.NavigationToCadastro(TarefaParam);
+                navigationService.NavigationToCadastro((Tarefa)param);
             }
             else
             {

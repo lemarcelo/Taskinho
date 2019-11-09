@@ -14,9 +14,7 @@ namespace Taskinho.Model
 
         //public enum TarefaStatus { a,b,c,d,e}
         public string TarefaStatus { get; set; }
-        public string TarefaTitulo { 
-            get; 
-            set; }
+        public string TarefaTitulo { get; set; }
 
 
         //private string _TarefaTitulo { get; set; }
@@ -29,16 +27,16 @@ namespace Taskinho.Model
         //        NotifyPropertyChanged("TarefaTitulo");
         //    }
         //}
-        public string TarefaDetalhes { 
-            get; 
-            set; }
+
+        public string TarefaDetalhes { get; set; }
         public string TarefaPrioridade { get; set; }
         public DateTime TarefaCadastro { get; set; }
-        public DateTime TarefaPrazo { get; set; }
+        public DateTime TarefaPrazoDate { get; set; }
+        public TimeSpan TarefaPrazoHour { get; set; }
 
         public Tarefa()
         {
-            TarefaPrazo = DateTime.Now;
+            TarefaPrazoDate = DateTime.Now;
         }
     }
 }

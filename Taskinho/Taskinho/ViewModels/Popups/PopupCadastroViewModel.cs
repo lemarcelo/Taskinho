@@ -12,47 +12,57 @@ namespace Taskinho.ViewModels.Popups
     {
         #region Props
 
-
-        public string Titulo
-        {
-            get{if (tarefa != null)
-                {
-                    return this.tarefa.TarefaTitulo;
-                }
-                else{return null;}}
-            set{if (this.tarefa != null)
-                {
-                    this.tarefa.TarefaTitulo = value; NotifyPropertyChanged("Titulo");
-                }
-                else
-                {
-                    tarefa = new Tarefa();
-                    this.tarefa.TarefaTitulo = value; NotifyPropertyChanged("Titulo");
-                }
-            }
-        }
-
-        public string Detalhes
+        public string TarefaTitulo
         {
             get
             {
-                if (tarefa != null)
-                {
-                    return this.tarefa.TarefaDetalhes;
-                }
+                if (tarefa != null){return this.tarefa.TarefaTitulo;}
+                else{return null;}
+            }
+            set
+            {
+                if(this.tarefa != null){this.tarefa.TarefaTitulo = value; NotifyPropertyChanged("TarefaTitulo");}
+                else{ this.tarefa = new Tarefa(); this.tarefa.TarefaTitulo = value; NotifyPropertyChanged("TarefaTitulo");}
+            }
+        }
+
+        public string TarefaDetalhes
+        {
+            get
+            {
+                if (tarefa != null){return this.tarefa.TarefaDetalhes;}
                 else { return null; }
             }
             set
             {
-                if (this.tarefa != null)
-                {
-                    this.tarefa.TarefaDetalhes = value; NotifyPropertyChanged("Titulo");
-                }
-                else
-                {
-                    tarefa = new Tarefa();
-                    this.tarefa.TarefaDetalhes = value; NotifyPropertyChanged("Detalhes");
-                }
+                if (this.tarefa != null){this.tarefa.TarefaDetalhes = value; NotifyPropertyChanged("TarefaDetalhes");}
+                else{this.tarefa.TarefaDetalhes = value; NotifyPropertyChanged("TarefaDetalhes");}
+            }
+        }
+        public TimeSpan PrazoHour
+        {
+            get
+            {
+                if (tarefa != null){return this.tarefa.TarefaPrazoHour;}
+                else { return DateTime.Today.TimeOfDay; }
+            }
+            set
+            {
+                if (this.tarefa != null){this.tarefa.TarefaPrazoHour = value; NotifyPropertyChanged("PrazoHour");}
+                else{this.tarefa.TarefaPrazoHour = value; NotifyPropertyChanged("PrazoHour");}
+            }
+        }
+        public DateTime PrazoDate
+        {
+            get
+            {
+                if (tarefa != null){return this.tarefa.TarefaPrazoDate; }
+                else { return DateTime.Now; }
+            }
+            set
+            {
+                if (this.tarefa != null){this.tarefa.TarefaPrazoDate = value; NotifyPropertyChanged("PrazoDate");}
+                else{this.tarefa.TarefaPrazoDate = value; NotifyPropertyChanged("PrazoDate");}
             }
         }
 
@@ -67,6 +77,7 @@ namespace Taskinho.ViewModels.Popups
                 NotifyPropertyChanged("tarefa");
             }
         }
+
         private string _TituloPagina;
         public string TituloPagina
         {
@@ -80,7 +91,7 @@ namespace Taskinho.ViewModels.Popups
 
 
         #endregion
-
+         
         public ICommand CancelarCommand
         {
             get;
@@ -97,6 +108,7 @@ namespace Taskinho.ViewModels.Popups
         
         public PopupCadastroViewModel(Tarefa tarefa = null)
         {
+            this.tarefa = new Tarefa();
             this.tarefa = tarefa;
             EditorAdd(tarefa);
             CancelarCommand = new Command(CancelarAction);
@@ -125,15 +137,15 @@ namespace Taskinho.ViewModels.Popups
                 tarefa.IdGrupo = 0;
                 tarefa.TarefaStatus = "p";
                 LocalDB _connection = new LocalDB();
-                if (TituloPagina == "EditarTarefa")
-                {
-                    _connection.InsertT(tarefa);
-                    SendAdd();
-                }
-                else
+                if (TituloPagina == "Editar Tarefa")
                 {
                     _connection.UpdateT(tarefa);
                     SendEdit();
+                }
+                else
+                {
+                    _connection.InsertT(tarefa);
+                    SendAdd();
                 }
                 navigationService.BackPopUp();
             }
