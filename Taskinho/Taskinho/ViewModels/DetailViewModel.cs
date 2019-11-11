@@ -15,6 +15,7 @@ namespace Taskinho.ViewModels
 {
     public class DetailViewModel : ViewModelBase
     {
+        LocalDB _connection = new LocalDB();
         Tarefa tarefa;
         LocalDB connection;
 
@@ -89,11 +90,7 @@ namespace Taskinho.ViewModels
 
         private void StatusAction(object obj)
         {
-
-            //if ()
-            //{
-
-            //}
+            _connection.Realized((Tarefa)obj);
         }
 
         private void FrameAction(object obj)
@@ -140,7 +137,6 @@ namespace Taskinho.ViewModels
                 Tarefa tarefinha = new Tarefa();
                 tarefinha = (Tarefa)param;
                 SubscribeUpdate();
-                LocalDB _connection = new LocalDB();
                 Tarefa tarefaParam = _connection.GetById((int)tarefinha.IdTarefa);
 
                 navigationService.NavigationToCadastro(tarefaParam);

@@ -63,6 +63,27 @@ namespace Taskinho.DB
         {
             
         }
+        public void Realized(Tarefa tarefa)
+        {
+            if (tarefa.TarefaStatus == "r")
+            {
+                _connection.Update(new Tarefa
+                {
+                    IdTarefa = tarefa.IdTarefa,
+                    TarefaStatus = "p"
+                });
+            }
+            else
+            {
+                _connection.Update(new Tarefa
+                {
+                    IdTarefa = tarefa.IdTarefa,
+                    TarefaStatus = "r"
+                });
+            }
+
+
+        }
 
         public void Dispose()
         {
