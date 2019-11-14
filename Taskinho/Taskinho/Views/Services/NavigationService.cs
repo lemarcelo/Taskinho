@@ -56,6 +56,18 @@ namespace Taskinho.Views.Services
         {
             var page = new Popups.PopupCadastroView(tarefa);
             await PopupNavigation.Instance.PushAsync(page);
+            //if (tarefa != null)
+            //{
+            //    var page = new Popups.PopupCadastroView(tarefa);
+            //    await PopupNavigation.Instance.PushAsync(page);
+
+            //}
+            //else
+            //{
+
+            //}
+
+
         }
     }
 }

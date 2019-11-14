@@ -122,8 +122,7 @@ namespace Taskinho.ViewModels
             if (AdicionarCommand != null)
             {
                 SubscribeAdd();
-                tarefa = null;
-                navigationService.NavigationToCadastro(tarefa);
+                navigationService.NavigationToCadastro();
             }
             else
             {
@@ -134,12 +133,12 @@ namespace Taskinho.ViewModels
         {
             if (EditarCommand != null)
             {
-                Tarefa tarefinha = new Tarefa();
-                tarefinha = (Tarefa)param;
+                Tarefa TarefaEdit = new Tarefa();
+                TarefaEdit = (Tarefa)param;
                 SubscribeUpdate();
-                Tarefa tarefaParam = _connection.GetById((int)tarefinha.IdTarefa);
+                
 
-                navigationService.NavigationToCadastro(tarefaParam);
+                navigationService.NavigationToCadastro(TarefaEdit);
             }
             else
             {

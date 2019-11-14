@@ -67,7 +67,8 @@ namespace Taskinho.ViewModels.Popups
             }
         }
 
-
+        
+        
         private Tarefa _Tarefa;
         public Tarefa tarefa
         {
@@ -109,9 +110,17 @@ namespace Taskinho.ViewModels.Popups
         
         public PopupCadastroViewModel(Tarefa tarefa = null)
         {
-            this.tarefa = new Tarefa();
-            this.tarefa = tarefa;
+            Tarefa tarefaParam = new Tarefa();
+            tarefaParam = tarefa;
 
+            if (tarefaParam != null)
+            {
+                this.tarefa = (Tarefa)tarefaParam.Clone();
+            }
+            else
+            {
+                this.tarefa = (Tarefa)tarefaParam.CloneVazio();
+            }
 
             EditorAdd(this.tarefa);
             CancelarCommand = new Command(CancelarAction);
@@ -178,6 +187,7 @@ namespace Taskinho.ViewModels.Popups
             var detailViewModel = new DetailViewModel();
             MessagingCenter.Send(detailViewModel, "EditMsg", tarefa);
         }
+
         //TODO - POSSIBILIDADE DE DESFAZER REALIZAÇÃO
         //TODO - Reagendar Tarefa
     }

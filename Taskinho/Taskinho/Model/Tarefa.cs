@@ -6,7 +6,7 @@ using Taskinho.ViewModels;
 
 namespace Taskinho.Model
 {
-    public class Tarefa
+    public class Tarefa:ICloneable
     {
         [PrimaryKey, AutoIncrement]
         public int IdTarefa { get; set; }
@@ -21,10 +21,22 @@ namespace Taskinho.Model
         public DateTime TarefaCadastro { get; set; }
         public DateTime TarefaPrazoDate { get; set; }
         public TimeSpan TarefaPrazoHour { get; set; }
-
         public Tarefa()
         {
             TarefaPrazoDate = DateTime.Now;
         }
+
+        #region Clones
+        public Tarefa CloneVazio()
+        {
+            Tarefa cloneTarefa = (Tarefa)Clone();
+            cloneTarefa = null;
+            return cloneTarefa;
+        }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+        #endregion
     }
 }
