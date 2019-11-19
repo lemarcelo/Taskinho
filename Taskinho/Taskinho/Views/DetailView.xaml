@@ -26,7 +26,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <CheckBox Color="#2196F3" Grid.RowSpan="3" />
+                        <CheckBox Color="#2196F3" Grid.RowSpan="3" IsChecked="{Binding TarefaRealizada}"/>
                         <Label Grid.ColumnSpan="3"
                            Text="{Binding TarefaTitulo}"
                            FontAttributes="Bold" 
@@ -57,7 +57,6 @@
                 </ViewCell>
             </DataTemplate>
 
-
             <DataTemplate x:Key="TarefaRealizada">
                 <ViewCell>
                     <Grid BackgroundColor="LightGray" Padding="10">
@@ -72,11 +71,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <CheckBox Color="#2196F3" Grid.RowSpan="3" IsChecked="{Binding TarefaStatus}">
-                            <CheckBox.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Path=BindingContext.StatusCommand, Source={x:Reference DetailPage}}" CommandParameter="{Binding .}" />
-                            </CheckBox.GestureRecognizers>
-                        </CheckBox>
+                        <CheckBox Color="#2196F3" Grid.RowSpan="3" IsChecked="{Binding TarefaRealizada}"/>
                         <Label Grid.Column="1"
                            Text="{Binding TarefaTitulo}"
                            FontAttributes="Bold" 

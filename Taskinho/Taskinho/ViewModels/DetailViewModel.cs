@@ -39,6 +39,17 @@ namespace Taskinho.ViewModels
                 NotifyPropertyChanged("SelectedDetalhes");
             }
         }
+        private bool _TarefaRealizada;
+        public bool TarefaRealizada
+        {
+            get { return _TarefaRealizada; }
+            set
+            {
+                _TarefaRealizada = value;
+                NotifyPropertyChanged("TarefaRealizada");
+            }
+        }
+
         public Command AdicionarCommand
         {
             get;set;
@@ -56,7 +67,7 @@ namespace Taskinho.ViewModels
         {
             get;set;
         }
-        public Command StatusCommand
+        public Command RealizeCommand
         {
             get;set;
         }
@@ -83,14 +94,14 @@ namespace Taskinho.ViewModels
             AdicionarCommand = new Command(AdicionarAction);
             EditarCommand = new Command(EditarAction);
             ExcluirCommand = new Command(ExcluirAction);
-            StatusCommand = new Command(StatusAction);
+            RealizeCommand = new Command(RealizeAction);
             this.messageService = DependencyService.Get<Services.IMessageService>();
             this.navigationService = DependencyService.Get<Services.INavigationService>();
         }
 
-        private void StatusAction(object obj)
+        private void RealizeAction(object obj)
         {
-            _connection.Realized((Tarefa)obj);
+            _connection.RealizeT((Tarefa)obj);
         }
 
         private void FrameAction(object obj)
@@ -138,7 +149,7 @@ namespace Taskinho.ViewModels
                 SubscribeUpdate();
                 
 
-                navigationService.NavigationToCadastro(TarefaEdit);
+                navigationService.NavigationToCadastro((Tarefa)TarefaEdit.Clone());
             }
             else
             {

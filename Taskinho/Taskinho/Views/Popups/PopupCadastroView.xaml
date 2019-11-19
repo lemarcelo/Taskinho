@@ -40,6 +40,9 @@
             <DatePicker Date="{Binding PrazoDate, Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center" />
             <TimePicker Time="{Binding PrazoHour, Mode=TwoWay}" TextColor="Black" HorizontalOptions="Center" />
 
+            <Label Text="Realizado" HorizontalOptions="Start" />
+            <CheckBox Color="#2196F3" HorizontalOptions="Start" Grid.RowSpan="3" IsChecked="{Binding TarefaRealizada}"/>
+
             <StackLayout Margin="0,0,0,15" Orientation="Horizontal" HorizontalOptions="Center" Spacing="50" >
                 <Button Text="Cancelar" CornerRadius="10" Command="{Binding CancelarCommand}" />
                 <Button Text="Salvar" CornerRadius="10"  Command="{Binding SalvarCommand}" />

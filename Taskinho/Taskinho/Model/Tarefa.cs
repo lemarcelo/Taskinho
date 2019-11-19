@@ -15,7 +15,7 @@ namespace Taskinho.Model
         //public enum TarefaStatus { a,b,c,d,e}
         public string TarefaStatus { get; set; }
         public string TarefaTitulo { get; set; }
-
+        public bool TarefaRealizada { get; set; }
         public string TarefaDetalhes { get; set; }
         public string TarefaPrioridade { get; set; }
         public DateTime TarefaCadastro { get; set; }

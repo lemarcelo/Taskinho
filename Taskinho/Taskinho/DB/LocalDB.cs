@@ -63,14 +63,14 @@ namespace Taskinho.DB
         {
             
         }
-        public void Realized(Tarefa tarefa)
+        public void RealizeT(Tarefa tarefa)
         {
-            if (tarefa.TarefaStatus == "r")
+            if (tarefa.TarefaRealizada == true)
             {
                 _connection.Update(new Tarefa
                 {
                     IdTarefa = tarefa.IdTarefa,
-                    TarefaStatus = "p"
+                    TarefaRealizada = false
                 });
             }
             else
@@ -78,7 +78,7 @@ namespace Taskinho.DB
                 _connection.Update(new Tarefa
                 {
                     IdTarefa = tarefa.IdTarefa,
-                    TarefaStatus = "r"
+                    TarefaRealizada = true
                 });
             }
 

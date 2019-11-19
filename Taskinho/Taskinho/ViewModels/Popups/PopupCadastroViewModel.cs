@@ -57,18 +57,30 @@ namespace Taskinho.ViewModels.Popups
         {
             get
             {
-                if (tarefa != null){return this.tarefa.TarefaPrazoDate; }
+                if (tarefa != null) { return this.tarefa.TarefaPrazoDate; }
                 else { return DateTime.Now; }
             }
             set
             {
-                if (this.tarefa != null){this.tarefa.TarefaPrazoDate = value; NotifyPropertyChanged("PrazoDate");}
-                else{this.tarefa.TarefaPrazoDate = value; NotifyPropertyChanged("PrazoDate");}
+                if (this.tarefa != null) { this.tarefa.TarefaPrazoDate = value; NotifyPropertyChanged("PrazoDate"); }
+                else { this.tarefa.TarefaPrazoDate = value; NotifyPropertyChanged("PrazoDate"); }
+            }
+        }
+        private bool _TarefaRealizada;
+        public bool TarefaRealizada
+        {
+            get
+            {
+                if (tarefa != null) { return this.tarefa.TarefaRealizada; }
+                else { return false; }
+            }
+            set
+            {
+                if (this.tarefa != null) { this.tarefa.TarefaRealizada = value; NotifyPropertyChanged("PrazoDate"); }
+                else { this.tarefa.TarefaRealizada = value; NotifyPropertyChanged("PrazoDate"); }
             }
         }
 
-        
-        
         private Tarefa _Tarefa;
         public Tarefa tarefa
         {
@@ -105,22 +117,14 @@ namespace Taskinho.ViewModels.Popups
             set;
         }
 
+
         private readonly Services.IMessageService messageService;
         private readonly Services.INavigationService navigationService;
         
         public PopupCadastroViewModel(Tarefa tarefa = null)
         {
             Tarefa tarefaParam = new Tarefa();
-            tarefaParam = tarefa;
-
-            if (tarefaParam != null)
-            {
-                this.tarefa = (Tarefa)tarefaParam.Clone();
-            }
-            else
-            {
-                this.tarefa = (Tarefa)tarefaParam.CloneVazio();
-            }
+            this.tarefa = tarefa;
 
             EditorAdd(this.tarefa);
             CancelarCommand = new Command(CancelarAction);
@@ -148,6 +152,7 @@ namespace Taskinho.ViewModels.Popups
             {
                 tarefa.IdGrupo = 0;
                 tarefa.TarefaStatus = "p";
+                tarefa.TarefaRealizada = false;
                 LocalDB _connection = new LocalDB();
                 if (TituloPagina == "Editar Tarefa")
                 {

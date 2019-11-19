@@ -19,11 +19,11 @@ namespace Taskinho.Util
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            switch (((Tarefa)item).TarefaStatus)
+            switch (((Tarefa)item).TarefaRealizada)
             {
-                case "p":
+                case false:
                     return TarefaPendenteTemplate;
-                case "r":
+                case true:
                     return TarefaRealizadaTemplate;
                 default:
                     return TarefaRealizadaTemplate;
