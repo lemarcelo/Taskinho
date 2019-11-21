@@ -37,7 +37,7 @@ namespace Taskinho.ViewModels.Popups
             set
             {
                 if (this.tarefa != null){this.tarefa.TarefaDetalhes = value; NotifyPropertyChanged("TarefaDetalhes");}
-                else{this.tarefa.TarefaDetalhes = value; NotifyPropertyChanged("TarefaDetalhes");}
+                else { this.tarefa = new Tarefa(); this.tarefa.TarefaDetalhes = value; NotifyPropertyChanged("TarefaDetalhes");}
             }
         }
         public TimeSpan PrazoHour
@@ -50,7 +50,7 @@ namespace Taskinho.ViewModels.Popups
             set
             {
                 if (this.tarefa != null){this.tarefa.TarefaPrazoHour = value; NotifyPropertyChanged("PrazoHour");}
-                else{this.tarefa.TarefaPrazoHour = value; NotifyPropertyChanged("PrazoHour");}
+                else { this.tarefa = new Tarefa(); this.tarefa.TarefaPrazoHour = value; NotifyPropertyChanged("PrazoHour");}
             }
         }
         public DateTime PrazoDate
@@ -63,10 +63,9 @@ namespace Taskinho.ViewModels.Popups
             set
             {
                 if (this.tarefa != null) { this.tarefa.TarefaPrazoDate = value; NotifyPropertyChanged("PrazoDate"); }
-                else { this.tarefa.TarefaPrazoDate = value; NotifyPropertyChanged("PrazoDate"); }
+                else { this.tarefa = new Tarefa(); this.tarefa.TarefaPrazoDate = value; NotifyPropertyChanged("PrazoDate"); }
             }
         }
-        private bool _TarefaRealizada;
         public bool TarefaRealizada
         {
             get
@@ -77,7 +76,7 @@ namespace Taskinho.ViewModels.Popups
             set
             {
                 if (this.tarefa != null) { this.tarefa.TarefaRealizada = value; NotifyPropertyChanged("PrazoDate"); }
-                else { this.tarefa.TarefaRealizada = value; NotifyPropertyChanged("PrazoDate"); }
+                else { this.tarefa = new Tarefa(); this.tarefa.TarefaRealizada = value; NotifyPropertyChanged("PrazoDate"); }
             }
         }
 
@@ -152,17 +151,19 @@ namespace Taskinho.ViewModels.Popups
             {
                 tarefa.IdGrupo = 0;
                 tarefa.TarefaStatus = "p";
-                tarefa.TarefaRealizada = false;
                 LocalDB _connection = new LocalDB();
                 if (TituloPagina == "Editar Tarefa")
                 {
                     _connection.UpdateT(tarefa);
                     SendEdit();
+                    navigationService.BackPopUp();
+
                 }
                 else
                 {
                     _connection.InsertT(tarefa);
                     SendAdd();
+                    navigationService.BackPopUp();
                 }
                 navigationService.BackPopUp();
             }

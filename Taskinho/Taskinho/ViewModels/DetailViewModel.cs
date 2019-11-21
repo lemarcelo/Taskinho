@@ -26,9 +26,9 @@ namespace Taskinho.ViewModels
             set
             {
                 _Tarefas = value;
-                NotifyPropertyChanged("Tarefas");
             }
         }
+
         private string _SelectedDetalhes;
         public string DetalhesFrame
         {
@@ -97,6 +97,11 @@ namespace Taskinho.ViewModels
             RealizeCommand = new Command(RealizeAction);
             this.messageService = DependencyService.Get<Services.IMessageService>();
             this.navigationService = DependencyService.Get<Services.INavigationService>();
+        }
+        private void Realize(object sender, CheckedChangedEventArgs e)
+        {
+            Console.WriteLine("asdasdasd");
+            Console.ReadKey();
         }
 
         private void RealizeAction(object obj)
