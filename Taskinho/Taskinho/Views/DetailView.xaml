@@ -27,11 +27,11 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <CheckBox Color="#2196F3" Grid.RowSpan="3" IsChecked="{Binding TarefaRealizada, Mode=TwoWay}">
-                            <CheckBox.Triggers>
+                            <!--<CheckBox.Triggers>
                                 <DataTrigger >
                                     
                                 </DataTrigger>
-                            </CheckBox.Triggers>
+                            </CheckBox.Triggers>-->
                         </CheckBox>
 
                         <!--<CheckBox Color="#2196F3" Grid.RowSpan="3" IsChecked="{Binding Path=BindingContext.RealizeCommand, Source={x:Reference DetailPage}}" CheckedChanged="{Binding RealizeCommand}"/>-->

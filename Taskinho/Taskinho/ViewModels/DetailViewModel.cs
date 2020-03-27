@@ -49,7 +49,6 @@ namespace Taskinho.ViewModels
                 NotifyPropertyChanged("TarefaRealizada");
             }
         }
-
         public Command AdicionarCommand
         {
             get;set;
@@ -61,7 +60,6 @@ namespace Taskinho.ViewModels
         public Command EditarCommand
         {
             get; set;
-
         }
         public Command ExcluirCommand
         {
@@ -103,7 +101,6 @@ namespace Taskinho.ViewModels
             Console.WriteLine("asdasdasd");
             Console.ReadKey();
         }
-
         private void RealizeAction(object obj)
         {
             _connection.RealizeT((Tarefa)obj);
